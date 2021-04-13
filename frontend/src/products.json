@@ -1,0 +1,150 @@
+[
+    {
+        "id":1,
+        "name": "Racinet. The Costume History",
+        "image": "/img/The-costumes-of-history.png",
+        "info": "Hardcover, 14 x 19.5 cm, 1.30 kg, 752 pages",
+        "category": "books",
+        "brand": "Taschen",
+        "currency": "pounds",
+        "price": 60,
+        "inStock": 4,
+        "rating":4,
+        "reviews": 5,
+        "more": "Racinet’s Costume History is a landmark in the study of clothing and style. From Eskimo attire to high French couture, this unrivalled encyclopedia is an invaluable reference for students, designers, artists, illustrators, and historians, and anyone interested in style."
+    },
+    {
+        "id":2,
+        "name": "Virgil Abloh. Nike. ICONS",
+        "image": "/img/Somethings off.jpg",
+        "info": "Hardcover, Swiss binding, 25.5 x 29.7 cm, 2.33 kg, 352 pages",
+        "category": "books",
+        "brand": "Taschen",
+        "currency": "pounds",
+        "price": 60,
+        "inStock": 4,
+        "rating":4,
+        "reviews": 5,
+        "more": "Bringing together all the greats—from Air Jordan 1 to Air Presto—Nike and Virgil Abloh reinvent sneaker culture with the collaborative project The Ten and redesign 10 sneaker icons. Experience engineering ingenuity and Abloh’s investigative design process: each shoe is a piece of industrial design, a readymade sculpture, and a wearable all at once."
+    },
+    {
+        "id":3,
+        "name": "Neil Leifer. Homage to Ali. ‘Ali vs. Folley, 1967’",
+        "image": "/img/Ali.png",
+        "info": "Dye-sublimation print on ChromaLuxe aluminum panel, ready to hang, 100 x 100 cm",
+        "category": "books",
+        "brand": "Taschen",
+        "currency": "pounds",
+        "price": 3500,
+        "inStock": 4,
+        "rating":4,
+        "reviews": 5,
+        "more": "Take your place ringside with the indubitable champion of boxing photography, Neil Leifer, as he pays tribute to the legendary Muhammad Ali in an exclusive set of fine art prints. Powerful, nuanced, and adept at finding openings others would never see: the unmistakable Leifer touch!"
+    },
+    {
+        "id":4,
+        "name": "Frédéric Chaubin. Stone Age. Ancient Castles of Europe",
+        "image": "/img/stone-age.png",
+        "info": "Hardcover, 26 x 34 cm, 3.52 kg, 416 pages",
+        "category": "books",
+        "brand": "Taschen",
+        "currency": "pounds",
+        "price": 50,
+        "inStock": 4,
+        "rating":4,
+        "reviews": 5,
+        "more": "Follow photographer Frédéric Chaubin as he embarks on a unique, century-spanning journey through Europe. Featuring images of more than 200 buildings in 21 countries, Stone Age presents the history and architecture of the most dramatic medieval castles of the continent in an unprecedented collection."
+    },
+    {
+        "id":5,
+        "name": "Bauhaus. Updated Edition",
+        "image": "/img/tatto.jpg",
+        "info": "Hardcover, 25 x 34 cm, 3.44 kg, 400 pages",
+        "category": "books",
+        "brand": "Taschen",
+        "currency": "pounds",
+        "price": 50,
+        "inStock": 4,
+        "rating":4,
+        "reviews": 5,
+        "more": "Between two world wars, the Bauhaus School of Art and Design changed the face of modernity. Realized with the Bauhaus-Archiv in Berlin, this updated edition celebrates the school’s centennial, gathering 550 illustrations across 400 pages, including architectural plans and biographies of key figures like Walter Gropius, Paul Klee, and Marianne Brandt—the ultimate guide."
+    },
+
+
+
+
+
+
+
+
+    {
+        "id":1,
+        "name": "Racinet. The Costume History",
+        "image": "/img/The-costumes-of-history.png",
+        "info": "Hardcover, 14 x 19.5 cm, 1.30 kg, 752 pages",
+        "category": "books",
+        "brand": "Taschen",
+        "currency": "pounds",
+        "price": 60,
+        "inStock": 4,
+        "rating":4,
+        "reviews": 5,
+        "more": "Racinet’s Costume History is a landmark in the study of clothing and style. From Eskimo attire to high French couture, this unrivalled encyclopedia is an invaluable reference for students, designers, artists, illustrators, and historians, and anyone interested in style."
+    },
+    {
+        "id":2,
+        "name": "Virgil Abloh. Nike. ICONS",
+        "image": "/img/Somethings off.jpg",
+        "info": "Hardcover, Swiss binding, 25.5 x 29.7 cm, 2.33 kg, 352 pages",
+        "category": "books",
+        "brand": "Taschen",
+        "currency": "pounds",
+        "price": 60,
+        "inStock": 4,
+        "rating":4,
+        "reviews": 5,
+        "more": "Bringing together all the greats—from Air Jordan 1 to Air Presto—Nike and Virgil Abloh reinvent sneaker culture with the collaborative project The Ten and redesign 10 sneaker icons. Experience engineering ingenuity and Abloh’s investigative design process: each shoe is a piece of industrial design, a readymade sculpture, and a wearable all at once."
+    },
+    {
+        "id":3,
+        "name": "Neil Leifer. Homage to Ali. ‘Ali vs. Folley, 1967’",
+        "image": "/img/Ali.png",
+        "info": "Dye-sublimation print on ChromaLuxe aluminum panel, ready to hang, 100 x 100 cm",
+        "category": "books",
+        "brand": "Taschen",
+        "currency": "pounds",
+        "price": 3500,
+        "inStock": 4,
+        "rating":4,
+        "reviews": 5,
+        "more": "Take your place ringside with the indubitable champion of boxing photography, Neil Leifer, as he pays tribute to the legendary Muhammad Ali in an exclusive set of fine art prints. Powerful, nuanced, and adept at finding openings others would never see: the unmistakable Leifer touch!"
+    },
+    {
+        "id":4,
+        "name": "Frédéric Chaubin. Stone Age. Ancient Castles of Europe",
+        "image": "/img/stone-age.png",
+        "info": "Hardcover, 26 x 34 cm, 3.52 kg, 416 pages",
+        "category": "books",
+        "brand": "Taschen",
+        "currency": "pounds",
+        "price": 50,
+        "inStock": 4,
+        "rating":4,
+        "reviews": 5,
+        "more": "Follow photographer Frédéric Chaubin as he embarks on a unique, century-spanning journey through Europe. Featuring images of more than 200 buildings in 21 countries, Stone Age presents the history and architecture of the most dramatic medieval castles of the continent in an unprecedented collection."
+    },
+    {
+        "id":5,
+        "name": "Bauhaus. Updated Edition",
+        "image": "/img/tatto.jpg",
+        "info": "Hardcover, 25 x 34 cm, 3.44 kg, 400 pages",
+        "category": "books",
+        "brand": "Taschen",
+        "currency": "pounds",
+        "price": 50,
+        "inStock": 4,
+        "rating":4,
+        "reviews": 5,
+        "more": "Between two world wars, the Bauhaus School of Art and Design changed the face of modernity. Realized with the Bauhaus-Archiv in Berlin, this updated edition celebrates the school’s centennial, gathering 550 illustrations across 400 pages, including architectural plans and biographies of key figures like Walter Gropius, Paul Klee, and Marianne Brandt—the ultimate guide."
+    }
+]
