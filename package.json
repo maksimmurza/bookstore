@@ -2,11 +2,15 @@
   "name": "e-co-mern-ce",
   "version": "1.0.0",
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
+    "start": "node backend/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "author": "Maksim Murza",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
