@@ -37,19 +37,19 @@ const ProductScreen = () => {
             <Link to='/' className='btn btn-dark mb-3'>Go Back</Link>
             <Row>
             <Col md={4}>
-                <Image className='product-image' src={product.image} alt={product.name} fluid></Image>
+                <Image className='product-image' src={product?.image} alt={product?.name} fluid></Image>
             </Col>
             <Col md={5}>
                 <ListGroup variant='flush'>
                     <ListGroup.Item>
-                        <h3>{product.name}</h3>
+                        <h3>{product?.name}</h3>
                     </ListGroup.Item>
                     <ListGroup.Item>
-                        <Rating rating={Number(product.rating)} text={`${product.reviews} reviews`} color='brown'></Rating>
+                        <Rating rating={Number(product?.rating)} text={`${product?.reviews} reviews`} color='brown'></Rating>
                     </ListGroup.Item>
                     <ListGroup.Item>
-                        <span className='mr-3'>{product.info}</span>
-                        <span className='brand-name'><strong>{product.brand}</strong></span>
+                        <span className='mr-3'>{product?.info}</span>
+                        <span className='brand-name'><strong>{product?.brand}</strong></span>
                     </ListGroup.Item>
                     <ListGroup.Item>
                         <p>{product?.more}</p>
@@ -73,7 +73,7 @@ const ProductScreen = () => {
                             </Row>
                         </ListGroupItem>
                         <ListGroupItem>
-                            <Button className='btn-block' disabled={product.inStock === 0}>Add to Cart</Button>
+                            <Button className='btn-block' disabled={product?.inStock === 0}>Add to Cart</Button>
                         </ListGroupItem>
                     </ListGroup>
                 </Card>
