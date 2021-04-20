@@ -20,8 +20,8 @@ const ProductScreen = () => {
         price: 0,
         inStock: 0,
         rating: 0,
-        reviews: 0,
-        more: '',
+        numReviews: 0,
+        description: '',
     });
 
     useEffect(() => {
@@ -45,14 +45,14 @@ const ProductScreen = () => {
                         <h3>{product?.name}</h3>
                     </ListGroup.Item>
                     <ListGroup.Item>
-                        <Rating rating={Number(product?.rating)} text={`${product?.reviews} reviews`} color='brown'></Rating>
+                        <Rating rating={Number(product?.rating)} text={`${product?.numReviews} numReviews`} color='brown'></Rating>
                     </ListGroup.Item>
                     <ListGroup.Item>
                         <span className='mr-3'>{product?.info}</span>
                         <span className='brand-name'><strong>{product?.brand}</strong></span>
                     </ListGroup.Item>
                     <ListGroup.Item>
-                        <p>{product?.more}</p>
+                        <p>{product?.description}</p>
                     </ListGroup.Item>
                 </ListGroup>
             </Col>

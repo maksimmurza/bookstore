@@ -9,6 +9,6 @@ export default interface Product {
     price: number;
     inStock: number;
     rating: number,
-    reviews: number;
-    more: string;
+    numReviews: number;
+    description: string;
 }
