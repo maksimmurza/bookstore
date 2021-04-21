@@ -10,7 +10,7 @@ const ProductScreen = () => {
 
     const { id }: params = useParams();
     const [product, setProduct] = useState<Product>({
-        id: 0,
+        _id: 0,
         name: '',
         image: '',
         info: '',
@@ -45,7 +45,7 @@ const ProductScreen = () => {
                         <h3>{product?.name}</h3>
                     </ListGroup.Item>
                     <ListGroup.Item>
-                        <Rating rating={Number(product?.rating)} text={`${product?.numReviews} numReviews`} color='brown'></Rating>
+                        <Rating rating={Number(product?.rating)} text={`${product?.numReviews} reviews`} color='brown'></Rating>
                     </ListGroup.Item>
                     <ListGroup.Item>
                         <span className='mr-3'>{product?.info}</span>

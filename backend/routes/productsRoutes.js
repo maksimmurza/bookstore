@@ -10,8 +10,13 @@ routes.get('/', asyncHandler( async (req, res) => {
 }));
 
 routes.get('/:id', asyncHandler( async (req, res) => {
-    const product = await Product.findById(req.params.id)
-    product ? res.json(product) : res.status(404).json({message: 'Product not found'})
+    const product = await Product.findById(req.params.id).catch((error) => {
+        res.status(404)
+        throw new Error('Product not found')
+    })
+    
+    res.json(product)
+    
 }));
 
 export default routes
