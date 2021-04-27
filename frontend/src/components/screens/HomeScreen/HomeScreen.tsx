@@ -1,41 +1,39 @@
-import {useDispatch, useSelector} from 'react-redux'
-import {listProducts} from '../../../actions/productActions'
-import {RootState} from '../../../store'
-import Product from '../../../models/Product'
-import React, {useEffect} from 'react'
-import {Row, Col} from 'react-bootstrap';
-import ProductCard from '../../Product/ProductCard'
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { listProducts } from "../../../redux/actions/productActions";
+import { RootState } from "../../../redux/store";
+import React, { useEffect } from "react";
+import { Row, Col } from "react-bootstrap";
+import ProductCard from "../../Product/ProductCard";
 
 const HomeScreen = () => {
+	const dispatch = useAppDispatch();
+	const productList = useAppSelector((state) => state.productList);
+	const { loading, error, products } = productList;
 
-    const dispatch = useDispatch()
-    // const products: Array<Product> = []
+	useEffect(() => {
+		dispatch(listProducts());
+	}, [dispatch]);
 
-    const productList: ProductsReducer = useSelector<RootState>(state => state.productList) as ProductsReducer
-    const {loading, error, products} = productList
+	return (
+		<>
+			<h1>
+				<i>Latest</i>
+			</h1>
+			{loading ? (
+				<h3>Loading...</h3>
+			) : error ? (
+				<h3>{error}</h3>
+			) : (
+				<Row>
+					{products?.map((product) => (
+						<Col sm={12} md={6} lg={4} xl={3}>
+							<ProductCard {...product}></ProductCard>
+						</Col>
+					))}
+				</Row>
+			)}
+		</>
+	);
+};
 
-    useEffect(() => {
-       dispatch(listProducts())
-    }, [dispatch])
-
-    type ProductsReducer = {
-        loading?: String,
-        error?: String,
-        products?: Array<Product> 
-    }
-
-    return (
-        <>
-            <h1><i>Latest</i></h1>
-            <Row>
-                {products?.map(product => (
-                    <Col sm={12} md={6} lg={4} xl={3}>
-                        <ProductCard {...product}></ProductCard>
-                    </Col>
-                ))}
-            </Row>
-        </>
-    )
-}
-
-export default HomeScreen
+export default HomeScreen;
