@@ -15,6 +15,7 @@ interface Product {
 
 interface AppState {
 	products: Array<Product>;
+	product: Product;
 	loading: boolean;
 	error: any;
 }

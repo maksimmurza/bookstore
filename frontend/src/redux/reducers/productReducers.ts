@@ -7,7 +7,6 @@ import {
 	PRODUCT_DETAILS_SUCCESS,
 	PRODUCT_DETAILS_FAIL,
 } from "../constants";
-import { RootState } from "../store";
 
 export const productListReducer = (
 	state: Partial<AppState> = { products: [] },
@@ -28,12 +27,15 @@ export const productListReducer = (
 	}
 };
 
-export const productReducer = (state = { product: {} }, action: AnyAction) => {
+export const productReducer = (
+	state: Partial<AppState> = { product: {} as Product },
+	action: AnyAction
+) => {
 	switch (action.type) {
 		case PRODUCT_DETAILS_REQUEST:
-			return { loading: true, products: [] };
+			return { loading: true, ...state };
 		case PRODUCT_DETAILS_SUCCESS:
-			return { loading: false, products: action.payload };
+			return { loading: false, product: action.payload };
 		case PRODUCT_DETAILS_FAIL:
 			return { loading: false, error: action.payload };
 		default:

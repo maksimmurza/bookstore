@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { detailsProduct } from "../../../redux/actions/productActions";
 import { Link, useParams } from "react-router-dom";
 import Rating from "../../Rating/Rating";
 import {
@@ -11,32 +13,17 @@ import {
 	ListGroupItem,
 } from "react-bootstrap";
 import "./ProductScreen.scss";
-import axios from "axios";
 
 const ProductScreen = () => {
 	const { id }: params = useParams();
-	const [product, setProduct] = useState<Product>({
-		_id: 0,
-		name: "",
-		image: "",
-		info: "",
-		category: "",
-		brand: "",
-		currency: "",
-		price: 0,
-		inStock: 0,
-		rating: 0,
-		numReviews: 0,
-		description: "",
-	});
+	const dispatch = useAppDispatch();
+	const { product } = useAppSelector((state) => state.productDetails);
 
 	useEffect(() => {
-		const fetchProduct = async () => {
-			const { data } = await axios.get(`/api/products/${id}`);
-			setProduct(data);
-		};
-		fetchProduct();
-	}, [id]);
+		if (id) {
+			dispatch(detailsProduct(id));
+		}
+	}, [id, dispatch]);
 
 	return (
 		<>

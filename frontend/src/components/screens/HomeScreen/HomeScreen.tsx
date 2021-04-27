@@ -1,14 +1,16 @@
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { listProducts } from "../../../redux/actions/productActions";
-import { RootState } from "../../../redux/store";
 import React, { useEffect } from "react";
 import { Row, Col } from "react-bootstrap";
 import ProductCard from "../../Product/ProductCard";
 
 const HomeScreen = () => {
 	const dispatch = useAppDispatch();
-	const productList = useAppSelector((state) => state.productList);
-	const { loading, error, products } = productList;
+	const { loading, error, products } = useAppSelector(
+		(state) => state.productList
+	);
+
+	console.log(useAppSelector((state) => state));
 
 	useEffect(() => {
 		dispatch(listProducts());
