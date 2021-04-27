@@ -1,4 +1,8 @@
-// .product-img {
-//     height: 150px;
-//     width: auto;
-// }
+.card-title {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2; /* number of lines to show */
+	-webkit-box-orient: vertical;
+	min-height: 3em;
+}

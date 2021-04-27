@@ -20,9 +20,7 @@ const ProductScreen = () => {
 	const { product } = useAppSelector((state) => state.productDetails);
 
 	useEffect(() => {
-		if (id) {
-			dispatch(detailsProduct(id));
-		}
+		dispatch(detailsProduct(id));
 	}, [id, dispatch]);
 
 	return (
@@ -101,7 +99,7 @@ const ProductScreen = () => {
 };
 
 type params = {
-	id?: string;
+	id: string;
 };
 
 export default ProductScreen;
