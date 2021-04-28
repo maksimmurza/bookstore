@@ -15,6 +15,7 @@ import {
 	Button,
 	ListGroupItem,
 } from "react-bootstrap";
+import { PRODUCT_DETAILS_CLEAN } from "../../../redux/constants";
 import "./ProductScreen.scss";
 
 const ProductScreen = () => {
@@ -30,7 +31,13 @@ const ProductScreen = () => {
 
 	return (
 		<>
-			<Link to="/" className="btn btn-transparent mb-3 button-back">
+			<Link
+				to="/"
+				className="btn btn-transparent mb-3 button-back"
+				onClick={() => {
+					dispatch({ type: PRODUCT_DETAILS_CLEAN });
+				}}
+			>
 				<ArrowLeft color="gray" size="30"></ArrowLeft>
 			</Link>
 			{loading ? (
@@ -39,7 +46,14 @@ const ProductScreen = () => {
 				<Message variant="danger">{error}</Message>
 			) : (
 				<Row>
-					<Col md={4}>
+					<Col
+						md={4}
+						style={{
+							display: "grid",
+							placeItems: "center",
+							overflow: "hidden",
+						}}
+					>
 						<Image
 							className="product-image"
 							src={product?.image}

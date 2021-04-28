@@ -6,6 +6,7 @@ import {
 	PRODUCT_DETAILS_REQUEST,
 	PRODUCT_DETAILS_SUCCESS,
 	PRODUCT_DETAILS_FAIL,
+	PRODUCT_DETAILS_CLEAN,
 } from "../constants";
 
 export const productListReducer = (
@@ -38,6 +39,8 @@ export const productReducer = (
 			return { loading: false, product: action.payload as Product };
 		case PRODUCT_DETAILS_FAIL:
 			return { loading: false, error: action.payload };
+		case PRODUCT_DETAILS_CLEAN:
+			return { product: {} as Product };
 		default:
 			return state;
 	}

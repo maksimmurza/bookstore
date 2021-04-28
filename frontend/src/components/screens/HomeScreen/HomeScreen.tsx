@@ -12,8 +12,6 @@ const HomeScreen = () => {
 		(state) => state.productList
 	);
 
-	console.log(useAppSelector((state) => state));
-
 	useEffect(() => {
 		dispatch(listProducts());
 	}, [dispatch]);
@@ -30,7 +28,7 @@ const HomeScreen = () => {
 			) : (
 				<Row>
 					{products?.map((product) => (
-						<Col sm={12} md={6} lg={4} xl={3}>
+						<Col sm={6} md={6} lg={4} xl={3}>
 							<ProductCard
 								key={product._id}
 								{...product}
