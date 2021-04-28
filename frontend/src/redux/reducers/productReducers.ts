@@ -33,9 +33,9 @@ export const productReducer = (
 ) => {
 	switch (action.type) {
 		case PRODUCT_DETAILS_REQUEST:
-			return { loading: true, ...state };
+			return { loading: true, product: {} as Product };
 		case PRODUCT_DETAILS_SUCCESS:
-			return { loading: false, product: action.payload };
+			return { loading: false, product: action.payload as Product };
 		case PRODUCT_DETAILS_FAIL:
 			return { loading: false, error: action.payload };
 		default:
