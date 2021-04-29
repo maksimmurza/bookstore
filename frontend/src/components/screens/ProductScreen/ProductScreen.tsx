@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { detailsProduct } from "../../../redux/actions/productActions";
-import { Link, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import Rating from "../../Rating/Rating";
 import Loader from "../../Loader/Loader";
 import Message from "../../Message/Message";
@@ -14,20 +14,28 @@ import {
 	Card,
 	Button,
 	ListGroupItem,
+	FormControl,
 } from "react-bootstrap";
 import { PRODUCT_DETAILS_CLEAN } from "../../../redux/constants";
 import "./ProductScreen.scss";
 
 const ProductScreen = () => {
 	const { id }: params = useParams();
+	const history = useHistory();
 	const dispatch = useAppDispatch();
 	const { product, loading, error } = useAppSelector(
 		(state) => state.productDetails
 	);
 
+	const [qty, setQty] = useState(1);
+
 	useEffect(() => {
 		dispatch(detailsProduct(id));
 	}, [id, dispatch]);
+
+	const addToCartHandler = () => {
+		history.push(`/cart/${id}?qty=${qty}`);
+	};
 
 	return (
 		<>
@@ -108,10 +116,51 @@ const ProductScreen = () => {
 										</Col>
 									</Row>
 								</ListGroupItem>
+								{product!.inStock > 0 && (
+									<ListGroupItem>
+										<Row>
+											<Col className="text-left">
+												Quantity:
+											</Col>
+											<Col>
+												<FormControl
+													as="input"
+													type="numbers"
+													value={qty}
+													placeholder="0"
+													onChange={(e) => {
+														e.target.value === ""
+															? setQty(0)
+															: setQty(
+																	parseInt(
+																		e.target
+																			.value
+																	)
+															  );
+													}}
+												></FormControl>
+											</Col>
+										</Row>
+									</ListGroupItem>
+								)}
 								<ListGroupItem>
 									<Button
 										className="btn-block"
-										disabled={product?.inStock === 0}
+										onClick={addToCartHandler}
+										disabled={
+											product?.inStock === 0 ||
+											qty === 0 ||
+											product!.inStock < qty
+										}
+										title={
+											product?.inStock === 0
+												? "No product in stock"
+												: qty === 0
+												? "You didn't set a quantity"
+												: product!.inStock < qty
+												? "Quantity of this product is lower than you want to buy"
+												: "Go to the order details"
+										}
 									>
 										Add to Cart
 									</Button>

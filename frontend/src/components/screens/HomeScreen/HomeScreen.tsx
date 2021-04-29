@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { listProducts } from "../../../redux/actions/productActions";
 import React, { useEffect } from "react";
 import { Row, Col } from "react-bootstrap";
-import ProductCard from "../../Product/ProductCard";
+import ProductCard from "../../ProductCard/ProductCard";
 import Loader from "../../Loader/Loader";
 import Message from "../../Message/Message";
 
