@@ -14,6 +14,7 @@ interface Product {
 }
 
 interface AppState {
+	cartItems: Array<[Product, number]>;
 	products: Array<Product>;
 	product: Product;
 	loading: boolean;

@@ -17,6 +17,7 @@ import {
 	FormControl,
 } from "react-bootstrap";
 import { PRODUCT_DETAILS_CLEAN } from "../../../redux/constants";
+import { addItem } from "../../../redux/actions/cartActions";
 import "./ProductScreen.scss";
 
 const ProductScreen = () => {
@@ -34,7 +35,8 @@ const ProductScreen = () => {
 	}, [id, dispatch]);
 
 	const addToCartHandler = () => {
-		history.push(`/cart/${id}?qty=${qty}`);
+		// history.push(`/cart/${id}?qty=${qty}`);
+		dispatch(addItem(id, qty));
 	};
 
 	return (
