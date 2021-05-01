@@ -5,7 +5,7 @@ const Message = ({
 	variant = "primary",
 	children,
 }: {
-	variant: string;
+	variant?: string;
 	children: React.ReactNode;
 }) => {
 	return <Alert variant={variant}>{children}</Alert>;

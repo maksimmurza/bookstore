@@ -41,15 +41,16 @@ const ProductScreen = () => {
 
 	return (
 		<>
-			<Link
-				to="/"
-				className="btn btn-transparent mb-3 button-back"
+			<Button
+				className="btn transparent mb-3"
+				variant="link"
 				onClick={() => {
 					dispatch({ type: PRODUCT_DETAILS_CLEAN });
+					history.goBack();
 				}}
 			>
 				<ArrowLeft color="gray" size="30"></ArrowLeft>
-			</Link>
+			</Button>
 			{loading ? (
 				<Loader></Loader>
 			) : error ? (
