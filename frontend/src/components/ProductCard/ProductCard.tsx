@@ -41,7 +41,9 @@ const ProductCard = (props: Product) => {
 						></Rating>
 					</Card.Text>
 
-					<Card.Text as="h3">£{props.price}</Card.Text>
+					<Card.Text as="h4">
+						<strong>£{props.price}</strong>
+					</Card.Text>
 				</Card.Body>
 			</Card>
 		</>

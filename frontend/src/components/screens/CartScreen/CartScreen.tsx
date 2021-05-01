@@ -6,16 +6,16 @@ import {
 	Col,
 	ListGroup,
 	Image,
-	Form,
 	Button,
 	Card,
 	ListGroupItem,
 	FormControl,
 } from "react-bootstrap";
-import { addItem } from "../../../redux/actions/cartActions";
+import { addItem, removeItem } from "../../../redux/actions/cartActions";
 import Message from "../../Message/Message";
 import { RootState } from "../../../redux/store";
 import { Trash } from "react-bootstrap-icons";
+import "./CartScreen.scss";
 
 const CartScreen = ({
 	match,
@@ -35,7 +35,10 @@ const CartScreen = ({
 		}
 	}, [productId, qty, dispatch]);
 
-	const deleteItemHandler = () => {};
+	const removeItemHandler = (id: string) => {
+		dispatch(removeItem(id));
+	};
+	const checkoutHandler = () => {};
 
 	return (
 		<Row>
@@ -50,65 +53,107 @@ const CartScreen = ({
 						const product: Product = item[0];
 						const qty: number = item[1];
 						return (
-							<ListGroupItem key={product._id}>
-								<Row>
-									<Col md={2}>
-										<Image
-											src={product.image}
-											alt={product.name}
-											fluid
-											rounded
-										></Image>
-									</Col>
-									<Col md={5}>
-										<Link to={`/product/${product._id}`}>
-											{product.name}
-										</Link>
-									</Col>
-									<Col md={2}>£ {product.price}</Col>
-									<Col md={2}>
-										<FormControl
-											as="select"
-											value={qty}
-											onChange={(e) => {
-												dispatch(
-													addItem(
-														product._id.toString(),
-														Number(e.target.value)
+							<ListGroup variant="flush">
+								<ListGroupItem key={product._id}>
+									<Row>
+										<Col md={2}>
+											<Image
+												src={product.image}
+												alt={product.name}
+												fluid
+												rounded
+											></Image>
+										</Col>
+										<Col md={5}>
+											<Link
+												to={`/product/${product._id}`}
+											>
+												{product.name}
+											</Link>
+										</Col>
+										<Col md={2} className="text-center">
+											£ {product.price}
+										</Col>
+										<Col md={2}>
+											<FormControl
+												as="select"
+												value={qty}
+												onChange={(e) => {
+													dispatch(
+														addItem(
+															product._id.toString(),
+															Number(
+																e.target.value
+															)
+														)
+													);
+												}}
+											>
+												{[
+													...Array(
+														product.inStock
+													).keys(),
+												].map((key) => (
+													<option
+														key={key + 1}
+														value={key + 1}
+													>
+														{key + 1}
+													</option>
+												))}
+											</FormControl>
+										</Col>
+										<Col md={1}>
+											<Button
+												variant="link"
+												onClick={() =>
+													removeItemHandler(
+														product._id.toString()
 													)
-												);
-											}}
-										>
-											{[
-												...Array(
-													product.inStock
-												).keys(),
-											].map((key) => (
-												<option
-													key={key + 1}
-													value={key + 1}
-												>
-													{key + 1}
-												</option>
-											))}
-										</FormControl>
-									</Col>
-									<Col md={1}>
-										<Button
-											variant="danger"
-											onClick={deleteItemHandler}
-										>
-											<Trash></Trash>
-										</Button>
-									</Col>
-								</Row>
-							</ListGroupItem>
+												}
+												className="delete-item"
+											>
+												<i className="fas fa-trash"></i>
+											</Button>
+										</Col>
+									</Row>
+								</ListGroupItem>
+							</ListGroup>
 						);
 					})
 				)}
 			</Col>
-			<Col md={2}></Col>
-			<Col md={2}></Col>
+			<Col md={4}>
+				<Card>
+					<ListGroup>
+						<ListGroupItem>
+							<h4>
+								{`Total price for ${cartItems.reduce(
+									(totalQty, item) => totalQty + item[1],
+									0
+								)} items: `}
+							</h4>
+
+							{`£ ${cartItems
+								.reduce(
+									(totalPrice, item) =>
+										totalPrice + item[0].price * item[1],
+									0
+								)
+								.toFixed(2)}`}
+						</ListGroupItem>
+						<ListGroupItem>
+							<Button
+								className="btn-block"
+								disabled={cartItems.length === 0}
+								onClick={checkoutHandler}
+							>
+								Proceed To Checkout
+							</Button>
+						</ListGroupItem>
+					</ListGroup>
+				</Card>
+			</Col>
 		</Row>
 	);
 };

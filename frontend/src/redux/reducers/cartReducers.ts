@@ -1,5 +1,5 @@
 import { AnyAction } from "redux";
-import { CART_ADD_ITEM } from "../constants";
+import { CART_ADD_ITEM, CART_REMOVE_ITEM } from "../constants";
 
 export const cartReducer = (
 	state: Pick<AppState, "cartItems"> = { cartItems: [] },
@@ -21,7 +21,12 @@ export const cartReducer = (
 			} else {
 				return { cartItems: [...state.cartItems, action.payload] };
 			}
-
+		case CART_REMOVE_ITEM:
+			return {
+				cartItems: state.cartItems.filter(
+					(item) => item[0]._id !== action.payload
+				),
+			};
 		default:
 			return state;
 	}
