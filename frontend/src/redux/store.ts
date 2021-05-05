@@ -1,6 +1,7 @@
 import { AnyAction, configureStore, ThunkAction } from "@reduxjs/toolkit";
 import { productListReducer, productReducer } from "./reducers/productReducers";
 import { cartReducer } from "./reducers/cartReducers";
+import { userLoginReducer } from "./reducers/userReducers";
 
 const cartItemsFromStorage: Array<[Product, number]> = localStorage.getItem(
 	"cartItems"
@@ -10,9 +11,16 @@ const cartItemsFromStorage: Array<[Product, number]> = localStorage.getItem(
 	  >)
 	: ([] as Array<[Product, number]>);
 
+const userInfoFromStorage: UserInfo = localStorage.getItem("userInfo")
+	? JSON.parse(localStorage.getItem("userInfo") as string)
+	: ({} as UserInfo);
+
 const preloadedState: any = {
 	cart: {
 		cartItems: cartItemsFromStorage,
+	},
+	userLogin: {
+		userInfo: userInfoFromStorage,
 	},
 };
 
@@ -21,6 +29,7 @@ export const store = configureStore({
 		productList: productListReducer,
 		productDetails: productReducer,
 		cart: cartReducer,
+		userLogin: userLoginReducer,
 	},
 	preloadedState,
 	devTools: true,

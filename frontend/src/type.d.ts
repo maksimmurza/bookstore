@@ -14,9 +14,18 @@ interface Product {
 }
 
 interface AppState {
+	userInfo: UserInfo;
 	cartItems: Array<[Product, number]>;
 	products: Array<Product>;
 	product: Product;
 	loading: boolean;
 	error: any;
+}
+
+interface UserInfo {
+	_id: string;
+	name: string;
+	email: string;
+	isAdmin: boolean;
+	token: object;
 }
