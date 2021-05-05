@@ -13,7 +13,7 @@ const cartItemsFromStorage: Array<[Product, number]> = localStorage.getItem(
 
 const userInfoFromStorage: UserInfo = localStorage.getItem("userInfo")
 	? JSON.parse(localStorage.getItem("userInfo") as string)
-	: ({} as UserInfo);
+	: null;
 
 const preloadedState: any = {
 	cart: {
