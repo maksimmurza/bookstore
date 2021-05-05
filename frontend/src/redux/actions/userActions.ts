@@ -7,9 +7,8 @@ import {
 } from "../constants";
 import { AppThunk } from "../store";
 
-export const logIn = (email: string, password: number): AppThunk => async (
-	dispatch,
-	getState
+export const login = (email: string, password: string): AppThunk => async (
+	dispatch
 ) => {
 	try {
 		dispatch({ type: USER_LOGIN_REQUEST });
@@ -19,7 +18,7 @@ export const logIn = (email: string, password: number): AppThunk => async (
 			},
 		};
 		const { data } = await axios.post(
-			`/api/users/login`,
+			"/api/users/login",
 			{ email, password },
 			config
 		);
@@ -35,5 +34,3 @@ export const logIn = (email: string, password: number): AppThunk => async (
 		});
 	}
 };
-
-export {};

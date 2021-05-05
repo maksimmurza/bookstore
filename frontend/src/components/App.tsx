@@ -7,6 +7,7 @@ import Footer from "./Footer/Footer";
 import HomeScreen from "./screens/HomeScreen/HomeScreen";
 import ProductScreen from "./screens/ProductScreen/ProductScreen";
 import CartScreen from "./screens/CartScreen/CartScreen";
+import LoginScreen from "./screens/LoginScreen/LoginScreen";
 
 function App() {
 	return (
@@ -25,6 +26,7 @@ function App() {
 						component={CartScreen}
 						exact
 					></Route>
+					<Route path="/login" component={LoginScreen} exact></Route>
 				</Container>
 			</main>
 			<Footer></Footer>
