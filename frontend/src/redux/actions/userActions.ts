@@ -34,3 +34,8 @@ export const login = (email: string, password: string): AppThunk => async (
 		});
 	}
 };
+
+export const logout = (): AppThunk => async (dispatch) => {
+	dispatch({ type: USER_LOGOUT });
+	localStorage.removeItem("userInfo");
+};
