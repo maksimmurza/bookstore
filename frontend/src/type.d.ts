@@ -14,6 +14,7 @@ interface Product {
 }
 
 interface AppState {
+	user: UserInfo;
 	userInfo: UserInfo | null;
 	cartItems: Array<[Product, number]>;
 	products: Array<Product>;

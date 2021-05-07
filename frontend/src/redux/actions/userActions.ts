@@ -7,6 +7,9 @@ import {
 	USER_REGISTER_REQUEST,
 	USER_REGISTER_SUCCESS,
 	USER_REGISTER_FAIL,
+	USER_DETAILS_REQUEST,
+	USER_DETAILS_SUCCESS,
+	USER_DETAILS_FAIL,
 } from "../constants";
 import { AppThunk } from "../store";
 
@@ -61,6 +64,34 @@ export const register = (
 	} catch (error) {
 		dispatch({
 			type: USER_REGISTER_FAIL,
+			payload:
+				error.response && error.response.data.message
+					? error.response.data.message
+					: error.message,
+		});
+	}
+};
+
+export const userDetails = (id: string): AppThunk => async (
+	dispatch,
+	getState
+) => {
+	try {
+		dispatch({ type: USER_DETAILS_REQUEST });
+		const {
+			userLogin: { userInfo },
+		} = getState();
+		const config = {
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${userInfo!.token}`,
+			},
+		};
+		const { data } = await axios.get(`/api/users/${id}`, config);
+		dispatch({ type: USER_DETAILS_SUCCESS, payload: data });
+	} catch (error) {
+		dispatch({
+			type: USER_DETAILS_FAIL,
 			payload:
 				error.response && error.response.data.message
 					? error.response.data.message
