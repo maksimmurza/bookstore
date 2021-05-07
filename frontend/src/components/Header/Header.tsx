@@ -1,8 +1,6 @@
 import React from "react";
 import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
-// import { BookHalf } from 'react-bootstrap-icons'
 import { LinkContainer } from "react-router-bootstrap";
-import AnimatedLogo from "../AnimatedLogo/AnimatedLogo";
 import "./Header.scss";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { logout } from "../../redux/actions/userActions";
@@ -21,9 +19,7 @@ const Header = () => {
 				<Container>
 					<LinkContainer to="/">
 						<Navbar.Brand className="link-to-main">
-							<div className="logo-container">
-								<AnimatedLogo></AnimatedLogo>
-							</div>
+							<div className="logo-container"></div>
 							<span className="pl-2">Book Shop</span>
 						</Navbar.Brand>
 					</LinkContainer>
