@@ -10,6 +10,10 @@ import {
 	USER_DETAILS_REQUEST,
 	USER_DETAILS_SUCCESS,
 	USER_DETAILS_FAIL,
+	USER_EDIT_REQUEST,
+	USER_EDIT_SUCCESS,
+	USER_EDIT_FAIL,
+	USER_EDIT_RESET,
 } from "../constants";
 import { AppThunk } from "../store";
 
@@ -89,6 +93,34 @@ export const userDetails = (id: string): AppThunk => async (
 		};
 		const { data } = await axios.get(`/api/users/${id}`, config);
 		dispatch({ type: USER_DETAILS_SUCCESS, payload: data });
+	} catch (error) {
+		dispatch({
+			type: USER_DETAILS_FAIL,
+			payload:
+				error.response && error.response.data.message
+					? error.response.data.message
+					: error.message,
+		});
+	}
+};
+
+export const userEdit = (user: UserInfo): AppThunk => async (
+	dispatch,
+	getState
+) => {
+	try {
+		dispatch({ type: USER_EDIT_REQUEST });
+		const {
+			userLogin: { userInfo },
+		} = getState();
+		const config = {
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${userInfo!.token}`,
+			},
+		};
+		const { data } = await axios.put(`/api/users/profile`, user, config);
+		dispatch({ type: USER_EDIT_SUCCESS, payload: data });
 	} catch (error) {
 		dispatch({
 			type: USER_DETAILS_FAIL,

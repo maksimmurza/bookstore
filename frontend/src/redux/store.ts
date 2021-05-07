@@ -5,6 +5,7 @@ import {
 	userDetailsReducer,
 	userLoginReducer,
 	userRegisterReducer,
+	userEditReducer,
 } from "./reducers/userReducers";
 
 const cartItemsFromStorage: Array<[Product, number]> = localStorage.getItem(
@@ -36,6 +37,7 @@ export const store = configureStore({
 		userLogin: userLoginReducer,
 		userRegister: userRegisterReducer,
 		userDetails: userDetailsReducer,
+		userEdit: userEditReducer,
 	},
 	preloadedState,
 	devTools: true,

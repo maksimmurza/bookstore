@@ -8,12 +8,11 @@ import {
 	FormLabel,
 	FormControl,
 } from "react-bootstrap";
-import { Link, RouteChildrenProps } from "react-router-dom";
+import { RouteChildrenProps } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import Loader from "../../Loader/Loader";
 import Message from "../../Message/Message";
-import { userDetails } from "../../../redux/actions/userActions";
-import FormContainer from "../../FormContainer/FormContainer";
+import { userDetails, userEdit } from "../../../redux/actions/userActions";
 
 const ProfileScreen = ({ location, history }: RouteChildrenProps) => {
 	const [name, setName] = useState("");
@@ -21,14 +20,17 @@ const ProfileScreen = ({ location, history }: RouteChildrenProps) => {
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [message, setMessage] = useState("");
+	const [successUpdate, setSuccessUpdate] = useState(false);
 
 	const dispatch = useAppDispatch();
 	const { loading, error, user } = useAppSelector(
 		(state) => state.userDetails
 	);
 	const { userInfo } = useAppSelector((state) => state.userLogin);
+	const { success } = useAppSelector((state) => state.userEdit);
 
 	useEffect(() => {
+		setSuccessUpdate(false);
 		if (!userInfo) {
 			history.push("/login");
 		} else {
@@ -39,12 +41,15 @@ const ProfileScreen = ({ location, history }: RouteChildrenProps) => {
 				setEmail(user!.email);
 			}
 		}
-	}, [dispatch, history, user, userInfo]);
+	}, [dispatch, history, success, user, userInfo]);
 
 	const submitHandler = (event: FormEvent) => {
 		event.preventDefault();
 		if (password === confirmPassword) {
-			// update
+			dispatch(userEdit({ ...user, name, email, password } as UserInfo));
+			if (success) {
+				setSuccessUpdate(success);
+			}
 		} else {
 			setMessage("Passwords are not equal!");
 		}
@@ -53,9 +58,12 @@ const ProfileScreen = ({ location, history }: RouteChildrenProps) => {
 	return (
 		<Row>
 			<Col md={3}>
-				<h3>User profile</h3>
+				<h3>Edit profile</h3>
 				{message && <Message variant="danger">{message}</Message>}
 				{error && <Message variant="danger">{error}</Message>}
+				{successUpdate && (
+					<Message variant="success">Information updated</Message>
+				)}
 				{loading && <Loader></Loader>}
 				<Form onSubmit={submitHandler} className="pt-4">
 					<FormGroup controlId="name">
@@ -101,6 +109,9 @@ const ProfileScreen = ({ location, history }: RouteChildrenProps) => {
 						Save changes
 					</Button>
 				</Form>
+			</Col>
+			<Col md={9}>
+				<h3>Orders</h3>
 			</Col>
 		</Row>
 	);

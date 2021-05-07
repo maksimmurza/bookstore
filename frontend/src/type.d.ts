@@ -21,6 +21,7 @@ interface AppState {
 	product: Product;
 	loading: boolean;
 	error: any;
+	success: boolean;
 }
 
 interface UserInfo {
