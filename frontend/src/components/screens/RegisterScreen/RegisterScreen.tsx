@@ -12,19 +12,21 @@ import { Link, RouteChildrenProps } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import Loader from "../../Loader/Loader";
 import Message from "../../Message/Message";
-import { login } from "../../../redux/actions/userActions";
+import { register } from "../../../redux/actions/userActions";
 import FormContainer from "../../FormContainer/FormContainer";
 
-const LoginScreen = ({ location, history }: RouteChildrenProps) => {
+const RegisterScreen = ({ location, history }: RouteChildrenProps) => {
+	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [confirmPassword, setConfirmPassword] = useState("");
+	const [message, setMessage] = useState("");
 
 	const redirect = location.search ? location.search.split("=")[1] : "/";
 
 	const dispatch = useAppDispatch();
-	const { loading, error, userInfo } = useAppSelector(
-		(state) => state.userLogin
-	);
+	const { loading, error } = useAppSelector((state) => state.userRegister);
+	const { userInfo } = useAppSelector((state) => state.userLogin);
 
 	useEffect(() => {
 		if (userInfo) {
@@ -35,15 +37,30 @@ const LoginScreen = ({ location, history }: RouteChildrenProps) => {
 
 	const submitHandler = (event: FormEvent) => {
 		event.preventDefault();
-		dispatch(login(email, password));
+		if (password === confirmPassword) {
+			dispatch(register(name, email, password));
+		} else {
+			setMessage("Passwords are not equal!");
+		}
 	};
 
 	return (
 		<FormContainer>
-			<h3>Sign In</h3>
+			<h3>Create new account</h3>
+			{message && <Message variant="danger">{message}</Message>}
 			{error && <Message variant="danger">{error}</Message>}
 			{loading && <Loader></Loader>}
 			<Form onSubmit={submitHandler} className="pt-4">
+				<FormGroup controlId="name">
+					<FormLabel>Full name</FormLabel>
+					<FormControl
+						type="text"
+						placeholder="You name"
+						value={name}
+						onChange={(e) => setName(e.target.value)}
+					></FormControl>
+				</FormGroup>
+
 				<FormGroup controlId="email">
 					<FormLabel>Email address</FormLabel>
 					<FormControl
@@ -64,20 +81,25 @@ const LoginScreen = ({ location, history }: RouteChildrenProps) => {
 					></FormControl>
 				</FormGroup>
 
+				<FormGroup controlId="confirmPassword">
+					<FormLabel>Confirm password</FormLabel>
+					<FormControl
+						type="password"
+						placeholder="Confirm password"
+						value={confirmPassword}
+						onChange={(e) => setConfirmPassword(e.target.value)}
+					></FormControl>
+				</FormGroup>
 				<Button type="submit" variant="primary">
-					Log In
+					Sign Up
 				</Button>
 			</Form>
 			<Row>
 				<Col>
 					<Link
-						to={
-							redirect
-								? `/register?redirect=${redirect}`
-								: "/register"
-						}
+						to={redirect ? `/login?redirect=${redirect}` : "/login"}
 					>
-						Create new account
+						Log into an existing account
 					</Link>
 				</Col>
 			</Row>
@@ -85,4 +107,4 @@ const LoginScreen = ({ location, history }: RouteChildrenProps) => {
 	);
 };
 
-export default LoginScreen;
+export default RegisterScreen;

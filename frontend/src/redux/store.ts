@@ -1,7 +1,7 @@
 import { AnyAction, configureStore, ThunkAction } from "@reduxjs/toolkit";
 import { productListReducer, productReducer } from "./reducers/productReducers";
 import { cartReducer } from "./reducers/cartReducers";
-import { userLoginReducer } from "./reducers/userReducers";
+import { userLoginReducer, userRegisterReducer } from "./reducers/userReducers";
 
 const cartItemsFromStorage: Array<[Product, number]> = localStorage.getItem(
 	"cartItems"
@@ -30,6 +30,7 @@ export const store = configureStore({
 		productDetails: productReducer,
 		cart: cartReducer,
 		userLogin: userLoginReducer,
+		userRegister: userRegisterReducer,
 	},
 	preloadedState,
 	devTools: true,
