@@ -20,9 +20,16 @@ const userInfoFromStorage: UserInfo = localStorage.getItem("userInfo")
 	? JSON.parse(localStorage.getItem("userInfo") as string)
 	: null;
 
+const shippingAddressFromStorage: Address = localStorage.getItem(
+	"shippingAddress"
+)
+	? JSON.parse(localStorage.getItem("shippingAddress") as string)
+	: null;
+
 const preloadedState: any = {
 	cart: {
 		cartItems: cartItemsFromStorage,
+		shippingAddress: shippingAddressFromStorage,
 	},
 	userLogin: {
 		userInfo: userInfoFromStorage,

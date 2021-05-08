@@ -1,31 +1,48 @@
 import { AnyAction } from "redux";
-import { CART_ADD_ITEM, CART_REMOVE_ITEM } from "../constants";
+import {
+	CART_ADD_ITEM,
+	CART_REMOVE_ITEM,
+	CART_SAVE_SHIPPING_ADDRESS,
+} from "../constants";
 
 export const cartReducer = (
-	state: Pick<AppState, "cartItems"> = { cartItems: [] },
+	state: Partial<AppState> = {
+		cartItems: [] as Array<[Product, number]>,
+		shippingAddress: {} as Address,
+	},
 	action: AnyAction
 ) => {
 	switch (action.type) {
 		case CART_ADD_ITEM:
-			const inCart = state.cartItems.find(
+			const inCart = state.cartItems!.find(
 				(p) => p[0]._id === action.payload[0]._id
 			);
 			if (inCart) {
 				return {
-					cartItems: state.cartItems.map((item) =>
+					...state,
+					cartItems: state.cartItems!.map((item) =>
 						item[0]._id === action.payload[0]._id
 							? action.payload
 							: item
 					),
 				};
 			} else {
-				return { cartItems: [...state.cartItems, action.payload] };
+				return {
+					...state,
+					cartItems: [...state.cartItems!, action.payload],
+				};
 			}
 		case CART_REMOVE_ITEM:
 			return {
-				cartItems: state.cartItems.filter(
+				...state,
+				cartItems: state.cartItems!.filter(
 					(item) => item[0]._id !== action.payload
 				),
+			};
+		case CART_SAVE_SHIPPING_ADDRESS:
+			return {
+				...state,
+				shippingAddress: action.payload as Address,
 			};
 		default:
 			return state;

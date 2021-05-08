@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Link, RouteComponentProps } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import {
 	Row,
 	Col,
@@ -13,8 +13,6 @@ import {
 } from "react-bootstrap";
 import { addItem, removeItem } from "../../../redux/actions/cartActions";
 import Message from "../../Message/Message";
-import { RootState } from "../../../redux/store";
-import { Trash } from "react-bootstrap-icons";
 import "./CartScreen.scss";
 
 const CartScreen = ({
@@ -24,10 +22,9 @@ const CartScreen = ({
 }: RouteComponentProps<RouteParams>) => {
 	const productId = match.params.id;
 	const qty = location.search ? parseInt(location.search.split("=")[1]) : 1;
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 
-	const cart = useSelector((state: RootState) => state.cart);
-	const cartItems = cart.cartItems;
+	const { cartItems } = useAppSelector((state) => state.cart);
 
 	useEffect(() => {
 		if (productId) {
@@ -38,18 +35,20 @@ const CartScreen = ({
 	const removeItemHandler = (id: string) => {
 		dispatch(removeItem(id));
 	};
-	const checkoutHandler = () => {};
+	const checkoutHandler = () => {
+		history.push("/shipping");
+	};
 
 	return (
 		<Row>
 			<Col md={8}>
 				<h3 className="mb-3">Shopping Cart</h3>
-				{cartItems.length === 0 ? (
+				{cartItems!.length === 0 ? (
 					<Message>
 						You shopping cart is empty <Link to="/">Go back</Link>
 					</Message>
 				) : (
-					cartItems.map((item) => {
+					cartItems!.map((item) => {
 						const product: Product = item[0];
 						const qty: number = item[1];
 						return (
@@ -128,13 +127,13 @@ const CartScreen = ({
 					<ListGroup>
 						<ListGroupItem>
 							<h4>
-								{`Total price for ${cartItems.reduce(
+								{`Total price for ${cartItems!.reduce(
 									(totalQty, item) => totalQty + item[1],
 									0
 								)} items: `}
 							</h4>
 
-							{`£ ${cartItems
+							{`£ ${cartItems!
 								.reduce(
 									(totalPrice, item) =>
 										totalPrice + item[0].price * item[1],
@@ -145,7 +144,7 @@ const CartScreen = ({
 						<ListGroupItem>
 							<Button
 								className="btn-block"
-								disabled={cartItems.length === 0}
+								disabled={cartItems!.length === 0}
 								onClick={checkoutHandler}
 							>
 								Proceed To Checkout
