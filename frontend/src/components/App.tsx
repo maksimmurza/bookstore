@@ -11,6 +11,7 @@ import LoginScreen from "./screens/LoginScreen/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen/RegisterScreen";
 import ProfileScreen from "./screens/ProfileScreen/ProfileScreen";
 import ShippingScreen from "./screens/ShippingScreen/ShippingScreen";
+import PaymentScreen from "./screens/PaymentScreen/PaymentScreen";
 
 function App() {
 	return (
@@ -43,6 +44,11 @@ function App() {
 					<Route
 						path="/shipping"
 						component={ShippingScreen}
+						exact
+					></Route>
+					<Route
+						path="/payment"
+						component={PaymentScreen}
 						exact
 					></Route>
 				</Container>

@@ -48,6 +48,7 @@ const LoginScreen = ({ location, history }: RouteChildrenProps) => {
 					<FormLabel>Email address</FormLabel>
 					<FormControl
 						type="email"
+						required
 						placeholder="Enter Email"
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
@@ -58,6 +59,7 @@ const LoginScreen = ({ location, history }: RouteChildrenProps) => {
 					<FormLabel>Password</FormLabel>
 					<FormControl
 						type="password"
+						required
 						placeholder="Password"
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}

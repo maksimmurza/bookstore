@@ -18,6 +18,7 @@ interface AppState {
 	userInfo: UserInfo | null;
 	cartItems: Array<[Product, number]>;
 	shippingAddress: Address | null;
+	paymentMethod: string;
 	products: Array<Product>;
 	product: Product;
 	loading: boolean;

@@ -55,6 +55,7 @@ const RegisterScreen = ({ location, history }: RouteChildrenProps) => {
 					<FormLabel>Full name</FormLabel>
 					<FormControl
 						type="text"
+						required
 						placeholder="You name"
 						value={name}
 						onChange={(e) => setName(e.target.value)}
@@ -65,6 +66,7 @@ const RegisterScreen = ({ location, history }: RouteChildrenProps) => {
 					<FormLabel>Email address</FormLabel>
 					<FormControl
 						type="email"
+						required
 						placeholder="Enter Email"
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
@@ -75,6 +77,7 @@ const RegisterScreen = ({ location, history }: RouteChildrenProps) => {
 					<FormLabel>Password</FormLabel>
 					<FormControl
 						type="password"
+						required
 						placeholder="Password"
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
@@ -85,6 +88,7 @@ const RegisterScreen = ({ location, history }: RouteChildrenProps) => {
 					<FormLabel>Confirm password</FormLabel>
 					<FormControl
 						type="password"
+						required
 						placeholder="Confirm password"
 						value={confirmPassword}
 						onChange={(e) => setConfirmPassword(e.target.value)}

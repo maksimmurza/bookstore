@@ -3,6 +3,7 @@ import {
 	CART_ADD_ITEM,
 	CART_REMOVE_ITEM,
 	CART_SAVE_SHIPPING_ADDRESS,
+	CART_SAVE_PAYMENT_METHOD,
 } from "../constants";
 import { AppThunk } from "../store";
 
@@ -34,4 +35,12 @@ export const saveShippingAddress = (
 ): AppThunk => async (dispatch, getState) => {
 	dispatch({ type: CART_SAVE_SHIPPING_ADDRESS, payload: shippingAddress });
 	localStorage.setItem("shippingAddress", JSON.stringify(shippingAddress));
+};
+
+export const savePaymentMethod = (paymentMethod: string): AppThunk => async (
+	dispatch,
+	getState
+) => {
+	dispatch({ type: CART_SAVE_PAYMENT_METHOD, payload: paymentMethod });
+	localStorage.setItem("paymentMethod", JSON.stringify(paymentMethod));
 };

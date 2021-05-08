@@ -57,6 +57,7 @@ const ShippingScreen = ({ history, location }: RouteChildrenProps) => {
 						<FormLabel>Country</FormLabel>
 						<FormControl
 							type="text"
+							required
 							placeholder="You country"
 							value={country}
 							onChange={(e) => setCountry(e.target.value)}
@@ -67,6 +68,7 @@ const ShippingScreen = ({ history, location }: RouteChildrenProps) => {
 						<FormLabel>City address</FormLabel>
 						<FormControl
 							type="text"
+							required
 							placeholder="Enter city"
 							value={city}
 							onChange={(e) => setCity(e.target.value)}
@@ -77,6 +79,7 @@ const ShippingScreen = ({ history, location }: RouteChildrenProps) => {
 						<FormLabel>Address</FormLabel>
 						<FormControl
 							type="text"
+							required
 							placeholder="Address"
 							value={address}
 							onChange={(e) => setAddress(e.target.value)}
@@ -87,6 +90,7 @@ const ShippingScreen = ({ history, location }: RouteChildrenProps) => {
 						<FormLabel>Postal code</FormLabel>
 						<FormControl
 							type="text"
+							required
 							placeholder="Postal code"
 							value={postalCode}
 							onChange={(e) => setPostalCode(e.target.value)}
