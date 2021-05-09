@@ -21,6 +21,7 @@ import { addItem } from "../../../redux/actions/cartActions";
 import "./ProductScreen.scss";
 
 const ProductScreen = () => {
+	const [inCart, setInCart] = useState(false);
 	const { id }: params = useParams();
 	const history = useHistory();
 	const dispatch = useAppDispatch();
@@ -35,8 +36,8 @@ const ProductScreen = () => {
 	}, [id, dispatch]);
 
 	const addToCartHandler = () => {
-		// history.push(`/cart/${id}?qty=${qty}`);
 		dispatch(addItem(id, qty));
+		setInCart(true);
 	};
 
 	return (
@@ -132,6 +133,7 @@ const ProductScreen = () => {
 													value={qty}
 													placeholder="0"
 													onChange={(e) => {
+														setInCart(false);
 														e.target.value === ""
 															? setQty(0)
 															: setQty(
@@ -149,11 +151,15 @@ const ProductScreen = () => {
 								<ListGroupItem>
 									<Button
 										className="btn-block"
+										variant={`${
+											inCart ? "success" : "primary"
+										}`}
 										onClick={addToCartHandler}
 										disabled={
 											product?.inStock === 0 ||
 											qty === 0 ||
-											product!.inStock < qty
+											product!.inStock < qty ||
+											inCart
 										}
 										title={
 											product?.inStock === 0
@@ -162,10 +168,14 @@ const ProductScreen = () => {
 												? "You didn't set a quantity"
 												: product!.inStock < qty
 												? "Quantity of this product is lower than you want to buy"
-												: "Go to the order details"
+												: inCart
+												? "Item(s) already in cart. Change quantity or go to the cart"
+												: `Add ${qty} items to the cart`
 										}
 									>
-										Add to Cart
+										{`${
+											inCart ? "In cart" : "Add to cart"
+										}`}
 									</Button>
 								</ListGroupItem>
 							</ListGroup>
