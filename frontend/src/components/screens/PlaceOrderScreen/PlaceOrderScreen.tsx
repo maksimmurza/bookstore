@@ -15,11 +15,20 @@ import Message from "../../Message/Message";
 import { saveShippingAddress } from "../../../redux/actions/cartActions";
 import FormContainer from "../../FormContainer/FormContainer";
 import CheckoutSteps from "../../CheckoutSteps/CheckoutSteps";
+import { createOrder } from "../../../redux/actions/orderActions";
 
-const PlaceOrderScreen = () => {
+const PlaceOrderScreen = ({ history }: RouteChildrenProps) => {
+	const dispatch = useAppDispatch();
 	const { cartItems, shippingAddress, paymentMethod } = useAppSelector(
 		(state) => state.cart
 	);
+	const { success, error, order } = useAppSelector((state) => state.order);
+
+	useEffect(() => {
+		if (success) {
+			history.push(`/api/order/${order!._id}`);
+		}
+	}, [history, success]);
 
 	const itemsPrice = cartItems!.reduce(
 		(acc, item) => acc + item[0]!.price * item[1],
@@ -28,7 +37,26 @@ const PlaceOrderScreen = () => {
 	const shippingPrice = itemsPrice > 100 ? 0 : 25;
 	const totalPrice = itemsPrice + shippingPrice;
 
-	const placeOrderHandler = () => {};
+	const placeOrderHandler = () => {
+		if (shippingAddress && cartItems) {
+			dispatch(
+				createOrder({
+					orderItems: cartItems.map((item) => ({
+						name: item[0].name,
+						image: item[0].image,
+						quantity: item[1],
+						price: item[0].price,
+						product: item[0]._id,
+					})),
+					shippingAddress,
+					paymentMethod,
+					itemsPrice,
+					shippingPrice,
+					totalPrice,
+				})
+			);
+		}
+	};
 
 	return (
 		<>
@@ -123,6 +151,13 @@ const PlaceOrderScreen = () => {
 										Place Order
 									</Button>
 								</ListGroup.Item>
+								{error && (
+									<ListGroup.Item>
+										<Message variant="danger">
+											{error}
+										</Message>
+									</ListGroup.Item>
+								)}
 							</ListGroup>
 						</ListGroup>
 					</Card>

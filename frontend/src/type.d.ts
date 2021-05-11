@@ -19,6 +19,7 @@ interface AppState {
 	cartItems: Array<[Product, number]>;
 	shippingAddress: Address | null;
 	paymentMethod: string;
+	order: Order;
 	products: Array<Product>;
 	product: Product;
 	loading: boolean;
@@ -39,4 +40,15 @@ interface Address {
 	city: string;
 	postalCode: string;
 	address: string;
+}
+
+type Order = OrderProps & any;
+
+interface OrderProps {
+	orderItems: Array<object>;
+	shippingAddress: Address;
+	paymentMethod: string;
+	itemsPrice: number;
+	shippingPrice: number;
+	totalPrice: number;
 }

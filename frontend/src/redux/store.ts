@@ -1,6 +1,7 @@
 import { AnyAction, configureStore, ThunkAction } from "@reduxjs/toolkit";
 import { productListReducer, productReducer } from "./reducers/productReducers";
 import { cartReducer } from "./reducers/cartReducers";
+import { orderReducer } from "./reducers/orderReducers";
 import {
 	userDetailsReducer,
 	userLoginReducer,
@@ -45,6 +46,7 @@ export const store = configureStore({
 		userRegister: userRegisterReducer,
 		userDetails: userDetailsReducer,
 		userEdit: userEditReducer,
+		order: orderReducer,
 	},
 	preloadedState,
 	devTools: true,
