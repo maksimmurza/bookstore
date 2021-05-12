@@ -16,19 +16,19 @@ import {
 	ListGroupItem,
 	FormControl,
 } from "react-bootstrap";
-import { PRODUCT_DETAILS_CLEAN } from "../../../redux/constants";
 import { addItem } from "../../../redux/actions/cartActions";
 import "./ProductScreen.scss";
+import { useStartLoading } from "../../../hooks";
 
 const ProductScreen = () => {
+	const { product, loading, error } = useAppSelector(
+		(state) => state.productDetails
+	);
+	const startLoading = useStartLoading(loading);
 	const [inCart, setInCart] = useState(false);
 	const { id }: params = useParams();
 	const history = useHistory();
 	const dispatch = useAppDispatch();
-	const { product, loading, error } = useAppSelector(
-		(state) => state.productDetails
-	);
-
 	const [qty, setQty] = useState(1);
 
 	useEffect(() => {
@@ -46,13 +46,12 @@ const ProductScreen = () => {
 				className="btn transparent mb-3"
 				variant="link"
 				onClick={() => {
-					dispatch({ type: PRODUCT_DETAILS_CLEAN });
 					history.goBack();
 				}}
 			>
 				<ArrowLeft color="gray" size="30"></ArrowLeft>
 			</Button>
-			{loading ? (
+			{loading || startLoading ? (
 				<Loader></Loader>
 			) : error ? (
 				<Message variant="danger">{error}</Message>

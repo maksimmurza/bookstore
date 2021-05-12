@@ -5,12 +5,14 @@ import { Row, Col } from "react-bootstrap";
 import ProductCard from "../../ProductCard/ProductCard";
 import Loader from "../../Loader/Loader";
 import Message from "../../Message/Message";
+import { useStartLoading } from "../../../hooks";
 
 const HomeScreen = () => {
-	const dispatch = useAppDispatch();
 	const { loading, error, products } = useAppSelector(
 		(state) => state.productList
 	);
+	const startLoading = useStartLoading(loading);
+	const dispatch = useAppDispatch();
 
 	useEffect(() => {
 		dispatch(listProducts());
@@ -21,7 +23,7 @@ const HomeScreen = () => {
 			<h3>
 				<i>Latest</i>
 			</h3>
-			{loading ? (
+			{loading || startLoading ? (
 				<Loader></Loader>
 			) : error ? (
 				<Message variant="danger">{error}</Message>
