@@ -20,6 +20,7 @@ interface AppState {
 	shippingAddress: Address | null;
 	paymentMethod: string;
 	order: Order;
+	orderDetails: Order;
 	products: Array<Product>;
 	product: Product;
 	loading: boolean;
@@ -42,10 +43,12 @@ interface Address {
 	address: string;
 }
 
-type Order = OrderProps & any;
+type Order = OrderProps & { [prop: string]: any };
+
+// interface Order extends OrderProps {}
 
 interface OrderProps {
-	orderItems: Array<object>;
+	orderItems: Array<Partial<Product> & { quantity: number; price: number }>;
 	shippingAddress: Address;
 	paymentMethod: string;
 	itemsPrice: number;

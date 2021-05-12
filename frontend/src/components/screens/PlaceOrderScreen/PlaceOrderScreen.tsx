@@ -26,7 +26,7 @@ const PlaceOrderScreen = ({ history }: RouteChildrenProps) => {
 
 	useEffect(() => {
 		if (success) {
-			history.push(`/api/orders/${order!._id}`);
+			history.push(`/orders/${order!._id}`);
 		}
 	}, [history, success]);
 
