@@ -33,7 +33,7 @@ export const orderReducer = (
 };
 
 export const orderDetailsReducer = (
-	state: Partial<AppState> = { loading: true, order: {} as Order },
+	state: Partial<AppState> = { loading: true },
 	action: AnyAction
 ) => {
 	switch (action.type) {
