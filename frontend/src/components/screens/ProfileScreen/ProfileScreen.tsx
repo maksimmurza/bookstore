@@ -7,8 +7,11 @@ import {
 	FormGroup,
 	FormLabel,
 	FormControl,
+	Table,
 } from "react-bootstrap";
+import { Check, X } from "react-bootstrap-icons";
 import { RouteChildrenProps } from "react-router-dom";
+import { LinkContainer } from "react-router-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import Loader from "../../Loader/Loader";
 import Message from "../../Message/Message";
@@ -132,12 +135,65 @@ const ProfileScreen = ({ location, history }: RouteChildrenProps) => {
 				</Form>
 			</Col>
 			<Col md={9}>
+				<h3>Orders</h3>
 				{loadingUserOrders ? (
 					<Loader></Loader>
 				) : errorUserOrders ? (
 					<Message variant="danger">{errorUserOrders}</Message>
 				) : orders!.length > 0 ? (
-					orders?.map((order) => <li>{order._id}</li>)
+					<Table striped bordered hover responsive>
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>DATE</th>
+								<th>TOTAL</th>
+								<th>PAID</th>
+								<th>DELIVERED</th>
+							</tr>
+						</thead>
+						<tbody>
+							{orders?.map((order) => (
+								<tr key={order._id}>
+									<td>{order._id}</td>
+									<td>
+										{new Date(Date.parse(order.createdAt))
+											.toLocaleString("ru")
+											.substring(0, 17)}
+									</td>
+									<td>{order.totalPrice}</td>
+									<td>
+										{order.isPaid ? (
+											<Check
+												size="2em"
+												color="green"
+											></Check>
+										) : (
+											<X size="1.5em" color="gray"></X>
+										)}
+									</td>
+									<td>
+										{order.isDelivered ? (
+											<Check size={150}></Check>
+										) : (
+											<X size="1.5em" color="gray"></X>
+										)}
+									</td>
+									<td>
+										<LinkContainer
+											to={`/orders/${order._id}`}
+										>
+											<Button
+												className="btn-sm"
+												variant="outline-info"
+											>
+												Details
+											</Button>
+										</LinkContainer>
+									</td>
+								</tr>
+							))}
+						</tbody>
+					</Table>
 				) : (
 					<Message variant="primary">You have no orders yet</Message>
 				)}
