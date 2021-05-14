@@ -75,7 +75,7 @@ export const register =
 	};
 
 export const userDetails =
-	(id: string): AppThunk =>
+	(id: string, token?: string): AppThunk =>
 	async (dispatch, getState) => {
 		try {
 			dispatch({ type: USER_DETAILS_REQUEST });
@@ -85,7 +85,7 @@ export const userDetails =
 			const config = {
 				headers: {
 					"Content-Type": "application/json",
-					Authorization: `Bearer ${userInfo!.token}`,
+					Authorization: `Bearer ${token ? token : userInfo!.token}`,
 				},
 			};
 			const { data } = await axios.get(`/api/users/${id}`, config);

@@ -1,17 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import "./Header.scss";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { logout } from "../../redux/actions/userActions";
+import { userDetails } from "../../redux/actions/userActions";
 
 const Header = () => {
 	const { userInfo } = useAppSelector((state) => state.userLogin);
+	const { user } = useAppSelector((state) => state.userDetails);
 	const dispatch = useAppDispatch();
 
 	const logoutHandler = () => {
 		dispatch(logout());
 	};
+
+	useEffect(() => {
+		dispatch(userDetails("profile", userInfo?.token));
+	}, [dispatch, userInfo]);
 
 	return (
 		<header>
@@ -35,7 +41,7 @@ const Header = () => {
 							</LinkContainer>
 							{userInfo ? (
 								<NavDropdown
-									title={userInfo.name}
+									title={user ? user!.name : userInfo!.name}
 									id="user-account"
 								>
 									<LinkContainer to="/profile">
