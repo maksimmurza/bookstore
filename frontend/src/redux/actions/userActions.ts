@@ -10,129 +10,130 @@ import {
 	USER_DETAILS_REQUEST,
 	USER_DETAILS_SUCCESS,
 	USER_DETAILS_FAIL,
+	USER_DETAILS_CLEAN,
 	USER_EDIT_REQUEST,
 	USER_EDIT_SUCCESS,
 	USER_EDIT_FAIL,
-	USER_EDIT_RESET,
 } from "../constants";
 import { AppThunk } from "../store";
 
-export const login = (email: string, password: string): AppThunk => async (
-	dispatch
-) => {
-	try {
-		dispatch({ type: USER_LOGIN_REQUEST });
-		const config = {
-			headers: {
-				"Content-Type": "application/json",
-			},
-		};
-		const { data } = await axios.post(
-			"/api/users/login",
-			{ email, password },
-			config
-		);
-		dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
-		localStorage.setItem("userInfo", JSON.stringify(data));
-	} catch (error) {
-		dispatch({
-			type: USER_LOGIN_FAIL,
-			payload:
-				error.response && error.response.data.message
-					? error.response.data.message
-					: error.message,
-		});
-	}
-};
+export const login =
+	(email: string, password: string): AppThunk =>
+	async (dispatch) => {
+		try {
+			dispatch({ type: USER_LOGIN_REQUEST });
+			const config = {
+				headers: {
+					"Content-Type": "application/json",
+				},
+			};
+			const { data } = await axios.post(
+				"/api/users/login",
+				{ email, password },
+				config
+			);
+			dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
+			localStorage.setItem("userInfo", JSON.stringify(data));
+		} catch (error) {
+			dispatch({
+				type: USER_LOGIN_FAIL,
+				payload:
+					error.response && error.response.data.message
+						? error.response.data.message
+						: error.message,
+			});
+		}
+	};
 
-export const register = (
-	name: string,
-	email: string,
-	password: string
-): AppThunk => async (dispatch) => {
-	try {
-		dispatch({ type: USER_REGISTER_REQUEST });
-		const config = {
-			headers: {
-				"Content-Type": "application/json",
-			},
-		};
-		const { data } = await axios.post(
-			"/api/users",
-			{ name, email, password },
-			config
-		);
-		dispatch({ type: USER_REGISTER_SUCCESS });
-		dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
-		localStorage.setItem("userInfo", JSON.stringify(data));
-	} catch (error) {
-		dispatch({
-			type: USER_REGISTER_FAIL,
-			payload:
-				error.response && error.response.data.message
-					? error.response.data.message
-					: error.message,
-		});
-	}
-};
+export const register =
+	(name: string, email: string, password: string): AppThunk =>
+	async (dispatch) => {
+		try {
+			dispatch({ type: USER_REGISTER_REQUEST });
+			const config = {
+				headers: {
+					"Content-Type": "application/json",
+				},
+			};
+			const { data } = await axios.post(
+				"/api/users",
+				{ name, email, password },
+				config
+			);
+			dispatch({ type: USER_REGISTER_SUCCESS });
+			dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
+			localStorage.setItem("userInfo", JSON.stringify(data));
+		} catch (error) {
+			dispatch({
+				type: USER_REGISTER_FAIL,
+				payload:
+					error.response && error.response.data.message
+						? error.response.data.message
+						: error.message,
+			});
+		}
+	};
 
-export const userDetails = (id: string): AppThunk => async (
-	dispatch,
-	getState
-) => {
-	try {
-		dispatch({ type: USER_DETAILS_REQUEST });
-		const {
-			userLogin: { userInfo },
-		} = getState();
-		const config = {
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${userInfo!.token}`,
-			},
-		};
-		const { data } = await axios.get(`/api/users/${id}`, config);
-		dispatch({ type: USER_DETAILS_SUCCESS, payload: data });
-	} catch (error) {
-		dispatch({
-			type: USER_DETAILS_FAIL,
-			payload:
-				error.response && error.response.data.message
-					? error.response.data.message
-					: error.message,
-		});
-	}
-};
+export const userDetails =
+	(id: string): AppThunk =>
+	async (dispatch, getState) => {
+		try {
+			dispatch({ type: USER_DETAILS_REQUEST });
+			const {
+				userLogin: { userInfo },
+			} = getState();
+			const config = {
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${userInfo!.token}`,
+				},
+			};
+			const { data } = await axios.get(`/api/users/${id}`, config);
+			dispatch({ type: USER_DETAILS_SUCCESS, payload: data });
+		} catch (error) {
+			dispatch({
+				type: USER_DETAILS_FAIL,
+				payload:
+					error.response && error.response.data.message
+						? error.response.data.message
+						: error.message,
+			});
+		}
+	};
 
-export const userEdit = (user: UserInfo): AppThunk => async (
-	dispatch,
-	getState
-) => {
-	try {
-		dispatch({ type: USER_EDIT_REQUEST });
-		const {
-			userLogin: { userInfo },
-		} = getState();
-		const config = {
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${userInfo!.token}`,
-			},
-		};
-		const { data } = await axios.put(`/api/users/profile`, user, config);
-		dispatch({ type: USER_EDIT_SUCCESS, payload: data });
-	} catch (error) {
-		dispatch({
-			type: USER_DETAILS_FAIL,
-			payload:
-				error.response && error.response.data.message
-					? error.response.data.message
-					: error.message,
-		});
-	}
-};
+export const userEdit =
+	(user: UserInfo): AppThunk =>
+	async (dispatch, getState) => {
+		try {
+			dispatch({ type: USER_EDIT_REQUEST });
+			const {
+				userLogin: { userInfo },
+			} = getState();
+			const config = {
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${userInfo!.token}`,
+				},
+			};
+			const { data } = await axios.put(
+				`/api/users/profile`,
+				user,
+				config
+			);
+			dispatch({ type: USER_EDIT_SUCCESS, payload: data });
+		} catch (error) {
+			dispatch({
+				type: USER_EDIT_FAIL,
+				payload:
+					error.response && error.response.data.message
+						? error.response.data.message
+						: error.message,
+			});
+		}
+	};
 
 export const logout = (): AppThunk => async (dispatch) => {
+	dispatch({ type: USER_DETAILS_CLEAN });
 	dispatch({ type: USER_LOGOUT });
 	localStorage.removeItem("userInfo");
 };

@@ -21,6 +21,7 @@ interface AppState {
 	paymentMethod: string;
 	order: Order;
 	orderDetails: Order;
+	orders: Array<Order>;
 	products: Array<Product>;
 	product: Product;
 	loading: boolean;

@@ -13,6 +13,8 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import Loader from "../../Loader/Loader";
 import Message from "../../Message/Message";
 import { userDetails, userEdit } from "../../../redux/actions/userActions";
+import { getUserOrders } from "../../../redux/actions/orderActions";
+import { USER_EDIT_RESET } from "../../../redux/constants";
 
 const ProfileScreen = ({ location, history }: RouteChildrenProps) => {
 	const [name, setName] = useState("");
@@ -28,13 +30,17 @@ const ProfileScreen = ({ location, history }: RouteChildrenProps) => {
 	);
 	const { userInfo } = useAppSelector((state) => state.userLogin);
 	const { success } = useAppSelector((state) => state.userEdit);
+	const {
+		loading: loadingUserOrders,
+		orders,
+		error: errorUserOrders,
+	} = useAppSelector((state) => state.userOrders);
 
 	useEffect(() => {
-		setSuccessUpdate(false);
 		if (!userInfo) {
 			history.push("/login");
 		} else {
-			if (!user!.name) {
+			if (!user) {
 				dispatch(userDetails("profile"));
 			} else {
 				setName(user!.name);
@@ -43,13 +49,25 @@ const ProfileScreen = ({ location, history }: RouteChildrenProps) => {
 		}
 	}, [dispatch, history, success, user, userInfo]);
 
+	// Fetch once. Independent from updating user info
+	useEffect(() => {
+		dispatch(getUserOrders());
+	}, []);
+
+	useEffect(() => {
+		if (success) {
+			dispatch(userDetails("profile"));
+			setSuccessUpdate(success);
+		}
+		return () => {
+			dispatch({ type: USER_EDIT_RESET });
+		};
+	}, [success]);
+
 	const submitHandler = (event: FormEvent) => {
 		event.preventDefault();
 		if (password === confirmPassword) {
 			dispatch(userEdit({ ...user, name, email, password } as UserInfo));
-			if (success) {
-				setSuccessUpdate(success);
-			}
 		} else {
 			setMessage("Passwords are not equal!");
 		}
@@ -62,7 +80,10 @@ const ProfileScreen = ({ location, history }: RouteChildrenProps) => {
 				{message && <Message variant="danger">{message}</Message>}
 				{error && <Message variant="danger">{error}</Message>}
 				{successUpdate && (
-					<Message variant="success">Information updated</Message>
+					<Message variant="success">
+						Information updated. To see updates in navbar try to
+						reenter in profile
+					</Message>
 				)}
 				{loading && <Loader></Loader>}
 				<Form onSubmit={submitHandler} className="pt-4">
@@ -111,7 +132,15 @@ const ProfileScreen = ({ location, history }: RouteChildrenProps) => {
 				</Form>
 			</Col>
 			<Col md={9}>
-				<h3>Orders</h3>
+				{loadingUserOrders ? (
+					<Loader></Loader>
+				) : errorUserOrders ? (
+					<Message variant="danger">{errorUserOrders}</Message>
+				) : orders!.length > 0 ? (
+					orders?.map((order) => <li>{order._id}</li>)
+				) : (
+					<Message variant="primary">You have no orders yet</Message>
+				)}
 			</Col>
 		</Row>
 	);

@@ -17,7 +17,7 @@ import { saveShippingAddress } from "../../../redux/actions/cartActions";
 import FormContainer from "../../FormContainer/FormContainer";
 import { getOrderDetails, payOrder } from "../../../redux/actions/orderActions";
 import axios from "axios";
-import { ORDER_PAY_RESET } from "../../../redux/constants";
+import { ORDER_PAY_RESET, ORDER_DETAILS_RESET } from "../../../redux/constants";
 
 const OrderScreen = ({ match }: RouteChildrenProps<{ id: string }>) => {
 	const [sdkReady, setSdkReady] = useState(false);
@@ -54,13 +54,11 @@ const OrderScreen = ({ match }: RouteChildrenProps<{ id: string }>) => {
 		if (!order || successPay) {
 			dispatch({ type: ORDER_PAY_RESET });
 			dispatch(getOrderDetails(orderId));
-			// } else if (!order.isPaid) {
-			// 	if (!window.paypal) {
-			// 		addPayPalScript();
-			// 	} else {
-			// 		setSdkReady(true);
-			// 	}
 		}
+
+		return () => {
+			dispatch({ type: ORDER_DETAILS_RESET });
+		};
 	}, [dispatch, orderId, successPay]);
 
 	let itemsPrice;
@@ -80,7 +78,7 @@ const OrderScreen = ({ match }: RouteChildrenProps<{ id: string }>) => {
 				<Message variant="danger">{error}</Message>
 			) : (
 				<>
-					<h3>Order {orderId}</h3>
+					<h3>Order {order!._id}</h3>
 					<Row>
 						<Col md={8}>
 							<ListGroup variant="flush">

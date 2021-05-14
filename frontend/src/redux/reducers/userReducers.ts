@@ -14,6 +14,7 @@ import {
 	USER_EDIT_SUCCESS,
 	USER_EDIT_FAIL,
 	USER_EDIT_RESET,
+	USER_DETAILS_CLEAN,
 } from "../constants";
 
 export const userLoginReducer = (
@@ -51,16 +52,18 @@ export const userRegisterReducer = (
 };
 
 export const userDetailsReducer = (
-	state: Partial<AppState> = { user: {} as UserInfo },
+	state: Partial<AppState> = {},
 	action: AnyAction
 ) => {
 	switch (action.type) {
 		case USER_DETAILS_REQUEST:
-			return { ...state, loading: true };
+			return { loading: true };
 		case USER_DETAILS_SUCCESS:
 			return { loading: false, user: action.payload as UserInfo };
 		case USER_DETAILS_FAIL:
 			return { loading: false, error: action.payload };
+		case USER_DETAILS_CLEAN:
+			return {};
 		default:
 			return state;
 	}
@@ -81,8 +84,8 @@ export const userEditReducer = (
 			};
 		case USER_EDIT_FAIL:
 			return { loading: false, error: action.payload };
-		// case USER_EDIT_RESET:
-		// 	return { };
+		case USER_EDIT_RESET:
+			return {};
 		default:
 			return state;
 	}
