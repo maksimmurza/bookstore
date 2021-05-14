@@ -157,7 +157,7 @@ const OrderScreen = ({ match }: RouteChildrenProps<{ id: string }>) => {
 															</Col>
 															<Col md={6}>
 																<Link
-																	to={`/product/${item._id}`}
+																	to={`/product/${item.product}`}
 																>
 																	{item.name}
 																</Link>

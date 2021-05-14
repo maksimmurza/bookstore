@@ -65,7 +65,7 @@ const ProfileScreen = ({ location, history }: RouteChildrenProps) => {
 		return () => {
 			dispatch({ type: USER_EDIT_RESET });
 		};
-	}, [success]);
+	}, [success, dispatch]);
 
 	const submitHandler = (event: FormEvent) => {
 		event.preventDefault();
@@ -83,20 +83,22 @@ const ProfileScreen = ({ location, history }: RouteChildrenProps) => {
 				{message && <Message variant="danger">{message}</Message>}
 				{error && <Message variant="danger">{error}</Message>}
 				{successUpdate && (
-					<Message variant="success">
-						Information updated. To see updates in navbar try to
-						reenter in profile
+					<Message variant="success" dismissible>
+						Information updated
 					</Message>
 				)}
 				{loading && <Loader></Loader>}
-				<Form onSubmit={submitHandler} className="pt-4">
+				<Form onSubmit={submitHandler}>
 					<FormGroup controlId="name">
 						<FormLabel>Full name</FormLabel>
 						<FormControl
 							type="text"
 							placeholder="You name"
 							value={name}
-							onChange={(e) => setName(e.target.value)}
+							onChange={(e) => {
+								setName(e.target.value);
+								setSuccessUpdate(false);
+							}}
 						></FormControl>
 					</FormGroup>
 
@@ -106,7 +108,10 @@ const ProfileScreen = ({ location, history }: RouteChildrenProps) => {
 							type="email"
 							placeholder="Enter Email"
 							value={email}
-							onChange={(e) => setEmail(e.target.value)}
+							onChange={(e) => {
+								setEmail(e.target.value);
+								setSuccessUpdate(false);
+							}}
 						></FormControl>
 					</FormGroup>
 
@@ -116,7 +121,10 @@ const ProfileScreen = ({ location, history }: RouteChildrenProps) => {
 							type="password"
 							placeholder="Password"
 							value={password}
-							onChange={(e) => setPassword(e.target.value)}
+							onChange={(e) => {
+								setPassword(e.target.value);
+								setSuccessUpdate(false);
+							}}
 						></FormControl>
 					</FormGroup>
 
@@ -126,7 +134,10 @@ const ProfileScreen = ({ location, history }: RouteChildrenProps) => {
 							type="password"
 							placeholder="Confirm password"
 							value={confirmPassword}
-							onChange={(e) => setConfirmPassword(e.target.value)}
+							onChange={(e) => {
+								setConfirmPassword(e.target.value);
+								setSuccessUpdate(false);
+							}}
 						></FormControl>
 					</FormGroup>
 					<Button type="submit" variant="primary">

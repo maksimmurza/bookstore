@@ -1,5 +1,5 @@
 interface Product {
-	_id: number;
+	_id: string;
 	name: string;
 	image: string;
 	info: string;
@@ -49,7 +49,9 @@ type Order = OrderProps & { [prop: string]: any };
 // interface Order extends OrderProps {}
 
 interface OrderProps {
-	orderItems: Array<Partial<Product> & { quantity: number; price: number }>;
+	orderItems: Array<
+		Partial<Product> & { quantity: number; price: number; product: string }
+	>;
 	shippingAddress: Address;
 	paymentMethod: string;
 	itemsPrice: number;

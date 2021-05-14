@@ -51,7 +51,7 @@ const ProductScreen = () => {
 			>
 				<ArrowLeft color="gray" size="30"></ArrowLeft>
 			</Button>
-			{loading || startLoading ? (
+			{loading || startLoading || !product ? (
 				<Loader></Loader>
 			) : error ? (
 				<Message variant="danger">{error}</Message>
