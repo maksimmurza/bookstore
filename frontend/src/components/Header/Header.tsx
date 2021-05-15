@@ -16,7 +16,9 @@ const Header = () => {
 	};
 
 	useEffect(() => {
-		dispatch(userDetails("profile", userInfo?.token));
+		if (userInfo) {
+			dispatch(userDetails("profile", userInfo.token));
+		}
 	}, [dispatch, userInfo]);
 
 	return (

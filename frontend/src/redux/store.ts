@@ -13,6 +13,7 @@ import {
 	userRegisterReducer,
 	userEditReducer,
 	userListReducer,
+	userDeleteReducer,
 } from "./reducers/userReducers";
 
 const cartItemsFromStorage: Array<[Product, number]> = localStorage.getItem(
@@ -52,6 +53,7 @@ export const store = configureStore({
 		userRegister: userRegisterReducer,
 		userDetails: userDetailsReducer,
 		userEdit: userEditReducer,
+		userDelete: userDeleteReducer,
 		order: orderReducer,
 		orderDetails: orderDetailsReducer,
 		orderPay: orderPayReducer,

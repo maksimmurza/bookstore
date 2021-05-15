@@ -28,6 +28,7 @@ interface AppState {
 	loading: boolean;
 	error: any;
 	success: boolean;
+	message: object;
 }
 
 interface UserInfo {

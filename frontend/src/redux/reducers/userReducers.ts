@@ -14,10 +14,13 @@ import {
 	USER_EDIT_SUCCESS,
 	USER_EDIT_FAIL,
 	USER_EDIT_RESET,
-	USER_DETAILS_CLEAN,
+	USER_DETAILS_RESET,
 	USER_LIST_REQUEST,
 	USER_LIST_SUCCESS,
 	USER_LIST_FAIL,
+	USER_DELETE_REQUEST,
+	USER_DELETE_SUCCESS,
+	USER_DELETE_FAIL,
 } from "../constants";
 
 export const userLoginReducer = (
@@ -65,7 +68,7 @@ export const userDetailsReducer = (
 			return { loading: false, user: action.payload as UserInfo };
 		case USER_DETAILS_FAIL:
 			return { loading: false, error: action.payload };
-		case USER_DETAILS_CLEAN:
+		case USER_DETAILS_RESET:
 			return {};
 		default:
 			return state;
@@ -95,7 +98,7 @@ export const userEditReducer = (
 };
 
 export const userListReducer = (
-	state: Partial<AppState> = { users: [] as Users },
+	state: Partial<AppState> = {},
 	action: AnyAction
 ) => {
 	switch (action.type) {
@@ -104,6 +107,22 @@ export const userListReducer = (
 		case USER_LIST_SUCCESS:
 			return { loading: false, users: action.payload as Users };
 		case USER_LIST_FAIL:
+			return { loading: false, error: action.payload };
+		default:
+			return state;
+	}
+};
+
+export const userDeleteReducer = (
+	state: Partial<AppState> = {},
+	action: AnyAction
+) => {
+	switch (action.type) {
+		case USER_DELETE_REQUEST:
+			return { loading: true };
+		case USER_DELETE_SUCCESS:
+			return { loading: false, success: true };
+		case USER_DELETE_FAIL:
 			return { loading: false, error: action.payload };
 		default:
 			return state;

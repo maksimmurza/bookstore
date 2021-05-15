@@ -13,6 +13,7 @@ import {
 	ORDER_LIST_USER_REQUEST,
 	ORDER_LIST_USER_SUCCESS,
 	ORDER_LIST_USER_FAIL,
+	ORDER_LIST_USER_RESET,
 } from "../constants";
 import { AnyAction } from "redux";
 
@@ -92,6 +93,8 @@ export const userOrdersReducer = (
 			};
 		case ORDER_LIST_USER_FAIL:
 			return { loading: false, error: action.payload };
+		case ORDER_LIST_USER_RESET:
+			return {};
 		default:
 			return state;
 	}
