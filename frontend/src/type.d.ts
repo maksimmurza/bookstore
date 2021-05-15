@@ -16,6 +16,7 @@ interface Product {
 interface AppState {
 	user: UserInfo;
 	userInfo: UserInfo | null;
+	users: Users;
 	cartItems: Array<[Product, number]>;
 	shippingAddress: Address | null;
 	paymentMethod: string;
@@ -36,6 +37,8 @@ interface UserInfo {
 	isAdmin: boolean;
 	token: string;
 }
+
+type Users = Array<UserInfo & { [prop: string]: any }>;
 
 interface Address {
 	country: string;

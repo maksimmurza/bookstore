@@ -184,7 +184,10 @@ const ProfileScreen = ({ location, history }: RouteChildrenProps) => {
 									</td>
 									<td>
 										{order.isDelivered ? (
-											<Check size={150}></Check>
+											<Check
+												size="2em"
+												color="green"
+											></Check>
 										) : (
 											<X size="1.5em" color="gray"></X>
 										)}

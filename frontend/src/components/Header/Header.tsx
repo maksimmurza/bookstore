@@ -40,19 +40,61 @@ const Header = () => {
 								</Nav.Link>
 							</LinkContainer>
 							{userInfo ? (
-								<NavDropdown
-									title={user ? user!.name : userInfo!.name}
-									id="user-account"
-								>
-									<LinkContainer to="/profile">
-										<NavDropdown.Item>
-											Profile
+								!userInfo.isAdmin ? (
+									<NavDropdown
+										title={
+											user ? user!.name : userInfo!.name
+										}
+										id="user-account"
+									>
+										<LinkContainer to="/profile">
+											<NavDropdown.Item>
+												Profile
+											</NavDropdown.Item>
+										</LinkContainer>
+										{userInfo.isAdmin && (
+											<LinkContainer to="/admin/userList">
+												<NavDropdown.Item>
+													Users
+												</NavDropdown.Item>
+											</LinkContainer>
+										)}
+										<NavDropdown.Item
+											onClick={logoutHandler}
+										>
+											Logout
 										</NavDropdown.Item>
-									</LinkContainer>
-									<NavDropdown.Item onClick={logoutHandler}>
-										Logout
-									</NavDropdown.Item>
-								</NavDropdown>
+									</NavDropdown>
+								) : (
+									<NavDropdown
+										title={
+											user ? user!.name : userInfo!.name
+										}
+										id="user-account"
+									>
+										<LinkContainer to="/admin/userList">
+											<NavDropdown.Item>
+												Users
+											</NavDropdown.Item>
+										</LinkContainer>
+										<LinkContainer to="/admin/productList">
+											<NavDropdown.Item>
+												Products
+											</NavDropdown.Item>
+										</LinkContainer>
+										<LinkContainer to="/admin/orderList">
+											<NavDropdown.Item>
+												Orders
+											</NavDropdown.Item>
+										</LinkContainer>
+
+										<NavDropdown.Item
+											onClick={logoutHandler}
+										>
+											Logout
+										</NavDropdown.Item>
+									</NavDropdown>
+								)
 							) : (
 								<LinkContainer to="/login">
 									<Nav.Link className="">
