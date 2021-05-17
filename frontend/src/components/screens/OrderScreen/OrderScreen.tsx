@@ -1,20 +1,10 @@
-import React, { useState, useEffect, FormEvent } from "react";
-import {
-	Row,
-	Col,
-	ListGroup,
-	Image,
-	Card,
-	Button,
-	ListGroupItem,
-} from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Row, Col, ListGroup, Image, Card } from "react-bootstrap";
 import { PayPalButton } from "react-paypal-button-v2";
 import { Link, RouteChildrenProps } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import Loader from "../../Loader/Loader";
 import Message from "../../Message/Message";
-import { saveShippingAddress } from "../../../redux/actions/cartActions";
-import FormContainer from "../../FormContainer/FormContainer";
 import { getOrderDetails, payOrder } from "../../../redux/actions/orderActions";
 import axios from "axios";
 import { ORDER_PAY_RESET, ORDER_DETAILS_RESET } from "../../../redux/constants";
@@ -33,7 +23,6 @@ const OrderScreen = ({ match }: RouteChildrenProps<{ id: string }>) => {
 	} = useAppSelector((state) => state.orderPay);
 
 	const successPaymentHandler = (paymentResult: PaymentResult) => {
-		console.log(paymentResult);
 		dispatch(payOrder(orderId, paymentResult));
 	};
 

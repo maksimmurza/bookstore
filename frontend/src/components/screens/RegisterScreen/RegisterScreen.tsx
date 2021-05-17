@@ -30,7 +30,6 @@ const RegisterScreen = ({ location, history }: RouteChildrenProps) => {
 
 	useEffect(() => {
 		if (userInfo) {
-			console.log(userInfo);
 			history.push(redirect);
 		}
 	}, [history, userInfo, redirect]);

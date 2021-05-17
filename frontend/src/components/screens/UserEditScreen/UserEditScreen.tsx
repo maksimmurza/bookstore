@@ -61,7 +61,6 @@ const UserEditScreen = ({
 
 	const submitHandler = (event: FormEvent) => {
 		event.preventDefault();
-		console.log(match!.params.id);
 		if (password === confirmPassword) {
 			dispatch(
 				userEdit({

@@ -28,6 +28,7 @@ const Rating = ({ rating, text, color = "gray" }: RatingProps) => {
 							></StarFill>
 						) : (
 							<StarHalf
+								key={i}
 								width={18}
 								height={18}
 								color={color}
