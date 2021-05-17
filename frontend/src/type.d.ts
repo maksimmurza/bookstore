@@ -37,6 +37,7 @@ interface UserInfo {
 	email: string;
 	isAdmin: boolean;
 	token: string;
+	password?: string;
 }
 
 type Users = Array<UserInfo & { [prop: string]: any }>;

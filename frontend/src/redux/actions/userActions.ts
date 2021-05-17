@@ -110,7 +110,7 @@ export const userDetails =
 	};
 
 export const userEdit =
-	(user: UserInfo): AppThunk =>
+	(user: Partial<UserInfo>): AppThunk =>
 	async (dispatch, getState) => {
 		try {
 			dispatch({ type: USER_EDIT_REQUEST });
@@ -124,7 +124,7 @@ export const userEdit =
 				},
 			};
 			const { data } = await axios.put(
-				`/api/users/profile`,
+				`/api/users/${userInfo?.isAdmin ? user._id : "profile"}`,
 				user,
 				config
 			);
@@ -185,8 +185,8 @@ export const deleteUser =
 					Authorization: `Bearer ${userInfo!.token}`,
 				},
 			};
-			const { data } = await axios.delete(`/api/users/${id}`, config);
-			dispatch({ type: USER_DELETE_SUCCESS, payload: data });
+			await axios.delete(`/api/users/${id}`, config);
+			dispatch({ type: USER_DELETE_SUCCESS });
 		} catch (error) {
 			dispatch({
 				type: USER_DELETE_FAIL,

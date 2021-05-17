@@ -12,8 +12,9 @@ import { Link, RouteChildrenProps } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import Loader from "../../Loader/Loader";
 import Message from "../../Message/Message";
-import { userDetails } from "../../../redux/actions/userActions";
+import { userDetails, userEdit } from "../../../redux/actions/userActions";
 import FormContainer from "../../FormContainer/FormContainer";
+import { USER_EDIT_RESET } from "../../../redux/constants";
 
 const UserEditScreen = ({
 	location,
@@ -32,12 +33,16 @@ const UserEditScreen = ({
 		: "/admin/userList";
 
 	const dispatch = useAppDispatch();
+	const { success } = useAppSelector((state) => state.userEdit);
 	const { loading, user, error } = useAppSelector(
 		(state) => state.userDetails
 	);
 
 	useEffect(() => {
 		dispatch(userDetails(match!.params.id));
+		return () => {
+			dispatch({ type: USER_EDIT_RESET });
+		};
 	}, [dispatch, match]);
 
 	useEffect(() => {
@@ -48,10 +53,25 @@ const UserEditScreen = ({
 		}
 	}, [user]);
 
+	useEffect(() => {
+		if (success) {
+			history.push("/admin/userList");
+		}
+	}, [success]);
+
 	const submitHandler = (event: FormEvent) => {
 		event.preventDefault();
+		console.log(match!.params.id);
 		if (password === confirmPassword) {
-			// dispatch(userEdit());
+			dispatch(
+				userEdit({
+					_id: match!.params.id,
+					name,
+					email,
+					password,
+					isAdmin,
+				})
+			);
 		} else {
 			setMessage("Passwords are not equal!");
 		}
@@ -90,7 +110,6 @@ const UserEditScreen = ({
 					<FormLabel>Password</FormLabel>
 					<FormControl
 						type="password"
-						required
 						placeholder="New password"
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
@@ -101,7 +120,6 @@ const UserEditScreen = ({
 					<FormLabel>Confirm password</FormLabel>
 					<FormControl
 						type="password"
-						required
 						placeholder="Confirm new password"
 						value={confirmPassword}
 						onChange={(e) => setConfirmPassword(e.target.value)}
