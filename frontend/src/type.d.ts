@@ -69,3 +69,7 @@ interface PaymentResult {
 	update_time: string;
 	email_address: string;
 }
+
+interface RouteParams {
+	id: string;
+}

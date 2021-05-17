@@ -157,8 +157,4 @@ const CartScreen = ({
 	);
 };
 
-interface RouteParams {
-	id: string;
-}
-
 export default CartScreen;

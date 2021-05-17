@@ -40,6 +40,7 @@ const UserListScreen = () => {
 	useEffect(() => {
 		if (deleteConfirmation) {
 			dispatch(deleteUser(deletedUserId));
+			setDeleteConfirmation(false);
 		}
 	}, [deleteConfirmation, dispatch, deletedUserId]);
 
@@ -92,7 +93,7 @@ const UserListScreen = () => {
 										<td>
 											<ButtonGroup>
 												<LinkContainer
-													to={`/user/${user._id}/edit`}
+													to={`/admin/user/${user._id}/edit`}
 												>
 													<Button
 														className="btn-sm"
