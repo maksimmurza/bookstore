@@ -6,6 +6,8 @@ import {
 	updateUserProfile,
 	getUsers,
 	deleteUser,
+	getUserById,
+	updateUser,
 } from "../controllers/userController.js";
 import { protect, admin } from "../middleware/authMiddleware.js";
 const routes = express.Router();
@@ -16,6 +18,10 @@ routes
 	.route("/profile")
 	.get(protect, getUserProfile)
 	.put(protect, updateUserProfile);
-routes.route("/:id").delete(protect, admin, deleteUser);
+routes
+	.route("/:id")
+	.delete(protect, admin, deleteUser)
+	.get(protect, admin, getUserById)
+	.put(protect, admin, updateUser);
 
 export default routes;
