@@ -6,7 +6,14 @@ import {
 	PRODUCT_DETAILS_REQUEST,
 	PRODUCT_DETAILS_SUCCESS,
 	PRODUCT_DETAILS_FAIL,
-} from "../constants";
+	PRODUCT_DELETE_REQUEST,
+	PRODUCT_DELETE_SUCCESS,
+	PRODUCT_DELETE_FAIL,
+	PRODUCT_EDIT_REQUEST,
+	PRODUCT_EDIT_SUCCESS,
+	PRODUCT_EDIT_FAIL,
+	PRODUCT_EDIT_RESET,
+} from "../constants/productConstants";
 
 export const productListReducer = (
 	state: Partial<AppState> = { loading: true },
@@ -37,6 +44,22 @@ export const productReducer = (
 		case PRODUCT_DETAILS_SUCCESS:
 			return { loading: false, product: action.payload as Product };
 		case PRODUCT_DETAILS_FAIL:
+			return { loading: false, error: action.payload };
+		default:
+			return state;
+	}
+};
+
+export const productDeleteReducer = (
+	state: Partial<AppState> = {},
+	action: AnyAction
+) => {
+	switch (action.type) {
+		case PRODUCT_DELETE_REQUEST:
+			return { loading: true };
+		case PRODUCT_DELETE_SUCCESS:
+			return { loading: false, success: true };
+		case PRODUCT_DELETE_FAIL:
 			return { loading: false, error: action.payload };
 		default:
 			return state;

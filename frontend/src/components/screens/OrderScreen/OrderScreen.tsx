@@ -7,7 +7,10 @@ import Loader from "../../Loader/Loader";
 import Message from "../../Message/Message";
 import { getOrderDetails, payOrder } from "../../../redux/actions/orderActions";
 import axios from "axios";
-import { ORDER_PAY_RESET, ORDER_DETAILS_RESET } from "../../../redux/constants";
+import {
+	ORDER_PAY_RESET,
+	ORDER_DETAILS_RESET,
+} from "../../../redux/constants/orderConstants";
 
 const OrderScreen = ({ match }: RouteChildrenProps<{ id: string }>) => {
 	const [sdkReady, setSdkReady] = useState(false);

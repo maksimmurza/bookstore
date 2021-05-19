@@ -14,7 +14,7 @@ import Loader from "../../Loader/Loader";
 import Message from "../../Message/Message";
 import { userDetails, userEdit } from "../../../redux/actions/userActions";
 import FormContainer from "../../FormContainer/FormContainer";
-import { USER_EDIT_RESET } from "../../../redux/constants";
+import { USER_EDIT_RESET } from "../../../redux/constants/userConstants";
 
 const UserEditScreen = ({
 	location,

@@ -21,7 +21,7 @@ import {
 	USER_DELETE_REQUEST,
 	USER_DELETE_SUCCESS,
 	USER_DELETE_FAIL,
-} from "../constants";
+} from "../constants/userConstants";
 
 export const userLoginReducer = (
 	state: Partial<AppState> = {},

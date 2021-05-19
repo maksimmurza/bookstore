@@ -6,7 +6,10 @@ import { LinkContainer } from "react-router-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import Loader from "../../Loader/Loader";
 import Message from "../../Message/Message";
-import { listProducts } from "../../../redux/actions/productActions";
+import {
+	listProducts,
+	deleteProduct,
+} from "../../../redux/actions/productActions";
 import { useStartLoading } from "../../../hooks";
 
 const ProductListScreen = () => {
@@ -23,16 +26,16 @@ const ProductListScreen = () => {
 		(state) => state.productList
 	);
 	const startLoading = useStartLoading(loading);
-	// const {
-	// 	loading: deleteLoading,
-	// 	error: deleteError,
-	// 	success,
-	// } = useAppSelector((state) => state.productDelete);
+	const {
+		loading: deleteLoading,
+		error: deleteError,
+		success,
+	} = useAppSelector((state) => state.productDelete);
 	const { userInfo } = useAppSelector((state) => state.userLogin);
 
 	useEffect(() => {
 		dispatch(listProducts());
-	}, [dispatch]);
+	}, [dispatch, success]);
 
 	const deleteProductHandler = (id: string) => {
 		setDeletedProductId(id);
@@ -43,7 +46,7 @@ const ProductListScreen = () => {
 
 	useEffect(() => {
 		if (deleteConfirmation) {
-			// dispatch(deleteProduct(deletedProductId));
+			dispatch(deleteProduct(deletedProductId));
 			setDeleteConfirmation(false);
 		}
 	}, [deleteConfirmation, dispatch, deletedProductId]);
@@ -68,10 +71,12 @@ const ProductListScreen = () => {
 					</Button>
 				</Col>
 			</Row>
-			{loading || startLoading ? (
+			{loading || startLoading || deleteLoading ? (
 				<Loader></Loader>
-			) : error ? (
-				<Message variant="danger">{error}</Message>
+			) : error || deleteError ? (
+				<Message variant="danger">
+					{error ? error : deleteError}
+				</Message>
 			) : (
 				products && (
 					<>

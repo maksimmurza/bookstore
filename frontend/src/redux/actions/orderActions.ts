@@ -12,7 +12,7 @@ import {
 	ORDER_LIST_USER_REQUEST,
 	ORDER_LIST_USER_SUCCESS,
 	ORDER_LIST_USER_FAIL,
-} from "../constants";
+} from "../constants/orderConstants";
 import { AppThunk } from "../store";
 
 export const createOrder =

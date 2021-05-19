@@ -14,7 +14,7 @@ import {
 	ORDER_LIST_USER_SUCCESS,
 	ORDER_LIST_USER_FAIL,
 	ORDER_LIST_USER_RESET,
-} from "../constants";
+} from "../constants/orderConstants";
 import { AnyAction } from "redux";
 
 export const orderReducer = (

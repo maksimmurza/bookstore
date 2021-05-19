@@ -21,8 +21,8 @@ import {
 	USER_DELETE_REQUEST,
 	USER_DELETE_SUCCESS,
 	USER_DELETE_FAIL,
-	ORDER_LIST_USER_RESET,
-} from "../constants";
+} from "../constants/userConstants";
+import { ORDER_LIST_USER_RESET } from "../constants/orderConstants";
 import { AppThunk } from "../store";
 
 export const login =
