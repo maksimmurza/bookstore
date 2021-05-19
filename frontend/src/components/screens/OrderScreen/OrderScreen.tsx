@@ -176,13 +176,17 @@ const OrderScreen = ({ match }: RouteChildrenProps<{ id: string }>) => {
 										</ListGroup.Item>
 										<ListGroup.Item>
 											<Row>
-												<Col>Items</Col>
+												<Col className="text-left">
+													Items
+												</Col>
 												<Col>£{itemsPrice}</Col>
 											</Row>
 										</ListGroup.Item>
 										<ListGroup.Item>
 											<Row>
-												<Col>Shipping</Col>
+												<Col className="text-left">
+													Shipping
+												</Col>
 												<Col>
 													£{order!.shippingPrice}
 												</Col>
@@ -190,7 +194,7 @@ const OrderScreen = ({ match }: RouteChildrenProps<{ id: string }>) => {
 										</ListGroup.Item>
 										<ListGroup.Item>
 											<Row>
-												<Col>
+												<Col className="text-left">
 													<strong>Total</strong>
 												</Col>
 												<Col>£{order!.totalPrice}</Col>
