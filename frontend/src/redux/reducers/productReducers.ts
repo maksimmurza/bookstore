@@ -13,6 +13,9 @@ import {
 	PRODUCT_EDIT_SUCCESS,
 	PRODUCT_EDIT_FAIL,
 	PRODUCT_EDIT_RESET,
+	PRODUCT_CREATE_REQUEST,
+	PRODUCT_CREATE_SUCCESS,
+	PRODUCT_CREATE_FAIL,
 } from "../constants/productConstants";
 
 export const productListReducer = (
@@ -60,6 +63,22 @@ export const productDeleteReducer = (
 		case PRODUCT_DELETE_SUCCESS:
 			return { loading: false, success: true };
 		case PRODUCT_DELETE_FAIL:
+			return { loading: false, error: action.payload };
+		default:
+			return state;
+	}
+};
+
+export const productCreateReducer = (
+	state: Partial<AppState> = {},
+	action: AnyAction
+) => {
+	switch (action.type) {
+		case PRODUCT_CREATE_REQUEST:
+			return { loading: true };
+		case PRODUCT_CREATE_SUCCESS:
+			return { loading: false, success: true };
+		case PRODUCT_CREATE_FAIL:
 			return { loading: false, error: action.payload };
 		default:
 			return state;

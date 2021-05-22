@@ -13,6 +13,9 @@ import {
 	PRODUCT_EDIT_SUCCESS,
 	PRODUCT_EDIT_FAIL,
 	PRODUCT_EDIT_RESET,
+	PRODUCT_CREATE_REQUEST,
+	PRODUCT_CREATE_SUCCESS,
+	PRODUCT_CREATE_FAIL,
 } from "../constants/productConstants";
 import { AppThunk } from "../store";
 
@@ -84,3 +87,54 @@ export const deleteProduct =
 			});
 		}
 	};
+
+export const createProduct = (): AppThunk => async (dispatch, getState) => {
+	try {
+		dispatch({ type: PRODUCT_CREATE_REQUEST });
+		const {
+			userLogin: { userInfo },
+		} = getState();
+		const config = {
+			headers: {
+				Authorization: `Bearer ${userInfo!.token}`,
+			},
+		};
+		await axios.post("/api/products", {}, config);
+		dispatch({ type: PRODUCT_CREATE_SUCCESS });
+	} catch (error) {
+		dispatch({
+			type: PRODUCT_CREATE_FAIL,
+			payload:
+				error.response && error.response.data.message
+					? error.response.data.message
+					: error.message,
+		});
+	}
+};
+
+// export const editProduct =
+// 	(id: string, product: Product): AppThunk =>
+// 	async (dispatch, getState) => {
+// 		try {
+// 			dispatch({ type: PRODUCT_EDIT_REQUEST });
+// 			const {
+// 				userLogin: { userInfo },
+// 			} = getState();
+// 			const config = {
+// 				headers: {
+// 					"Content-type": "application/json",
+// 					Authorization: `Bearer ${userInfo!.token}`,
+// 				},
+// 			};
+// 			await axios.put(`/api/products/${id}`, product, config);
+// 			dispatch({ type: PRODUCT_EDIT_SUCCESS });
+// 		} catch (error) {
+// 			dispatch({
+// 				type: PRODUCT_EDIT_FAIL,
+// 				payload:
+// 					error.response && error.response.data.message
+// 						? error.response.data.message
+// 						: error.message,
+// 			});
+// 		}
+// 	};

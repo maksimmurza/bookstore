@@ -9,6 +9,7 @@ import Message from "../../Message/Message";
 import {
 	listProducts,
 	deleteProduct,
+	createProduct,
 } from "../../../redux/actions/productActions";
 import { useStartLoading } from "../../../hooks";
 
@@ -29,20 +30,27 @@ const ProductListScreen = () => {
 	const {
 		loading: deleteLoading,
 		error: deleteError,
-		success,
+		success: deleteSuccess,
 	} = useAppSelector((state) => state.productDelete);
+	const {
+		loading: createLoading,
+		error: createError,
+		success: createSuccess,
+	} = useAppSelector((state) => state.productCreate);
 	const { userInfo } = useAppSelector((state) => state.userLogin);
 
 	useEffect(() => {
 		dispatch(listProducts());
-	}, [dispatch, success]);
+	}, [dispatch, deleteSuccess, createSuccess]);
 
 	const deleteProductHandler = (id: string) => {
 		setDeletedProductId(id);
 		handleShowDeleteDialog();
 	};
 
-	const createProductHandler = () => {};
+	const createProductHandler = () => {
+		dispatch(createProduct());
+	};
 
 	useEffect(() => {
 		if (deleteConfirmation) {
@@ -71,9 +79,9 @@ const ProductListScreen = () => {
 					</Button>
 				</Col>
 			</Row>
-			{loading || startLoading || deleteLoading ? (
+			{loading || startLoading || deleteLoading || createLoading ? (
 				<Loader></Loader>
-			) : error || deleteError ? (
+			) : error || deleteError || createError ? (
 				<Message variant="danger">
 					{error ? error : deleteError}
 				</Message>
