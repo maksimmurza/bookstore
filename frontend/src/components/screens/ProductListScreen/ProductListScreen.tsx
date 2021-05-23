@@ -12,8 +12,11 @@ import {
 	createProduct,
 } from "../../../redux/actions/productActions";
 import { useStartLoading } from "../../../hooks";
+import { PRODUCT_CREATE_RESET } from "../../../redux/constants/productConstants";
 
 const ProductListScreen = () => {
+	const dispatch = useAppDispatch();
+	const history = useHistory();
 	const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 	const [deleteConfirmation, setDeleteConfirmation] = useState(false);
 	const [deletedProductId, setDeletedProductId] = useState("");
@@ -21,27 +24,49 @@ const ProductListScreen = () => {
 	const handleCloseDeleteDialog = () => setShowDeleteDialog(false);
 	const handleShowDeleteDialog = () => setShowDeleteDialog(true);
 
-	const dispatch = useAppDispatch();
-	const history = useHistory();
 	const { loading, error, products } = useAppSelector(
 		(state) => state.productList
 	);
+
 	const startLoading = useStartLoading(loading);
+
 	const {
 		loading: deleteLoading,
 		error: deleteError,
 		success: deleteSuccess,
 	} = useAppSelector((state) => state.productDelete);
+
+	const { userInfo } = useAppSelector((state) => state.userLogin);
+
 	const {
 		loading: createLoading,
+		product,
 		error: createError,
 		success: createSuccess,
 	} = useAppSelector((state) => state.productCreate);
-	const { userInfo } = useAppSelector((state) => state.userLogin);
 
 	useEffect(() => {
+		if (!userInfo?.isAdmin) {
+			history.push("/login");
+		}
+
 		dispatch(listProducts());
-	}, [dispatch, deleteSuccess, createSuccess]);
+	}, [deleteSuccess, userInfo?.isAdmin]);
+
+	useEffect(() => {
+		if (createSuccess && product) {
+			dispatch({ type: PRODUCT_CREATE_RESET });
+			history.push(`/admin/product/${product._id}/edit`);
+		}
+	}, [createSuccess, history, product]);
+
+	useEffect(() => {
+		if (deleteConfirmation) {
+			dispatch(deleteProduct(deletedProductId));
+			setDeleteConfirmation(false);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [deleteConfirmation]);
 
 	const deleteProductHandler = (id: string) => {
 		setDeletedProductId(id);
@@ -51,20 +76,6 @@ const ProductListScreen = () => {
 	const createProductHandler = () => {
 		dispatch(createProduct());
 	};
-
-	useEffect(() => {
-		if (deleteConfirmation) {
-			dispatch(deleteProduct(deletedProductId));
-			setDeleteConfirmation(false);
-		}
-	}, [deleteConfirmation, dispatch, deletedProductId]);
-
-	// stop displaying user list if admin logged out
-	useEffect(() => {
-		if (!userInfo?.isAdmin) {
-			history.push("/login");
-		}
-	}, [history, userInfo]);
 
 	return (
 		<>

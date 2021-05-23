@@ -99,8 +99,8 @@ export const createProduct = (): AppThunk => async (dispatch, getState) => {
 				Authorization: `Bearer ${userInfo!.token}`,
 			},
 		};
-		await axios.post("/api/products", {}, config);
-		dispatch({ type: PRODUCT_CREATE_SUCCESS });
+		const { data } = await axios.post("/api/products", {}, config);
+		dispatch({ type: PRODUCT_CREATE_SUCCESS, payload: data });
 	} catch (error) {
 		dispatch({
 			type: PRODUCT_CREATE_FAIL,
@@ -112,29 +112,29 @@ export const createProduct = (): AppThunk => async (dispatch, getState) => {
 	}
 };
 
-// export const editProduct =
-// 	(id: string, product: Product): AppThunk =>
-// 	async (dispatch, getState) => {
-// 		try {
-// 			dispatch({ type: PRODUCT_EDIT_REQUEST });
-// 			const {
-// 				userLogin: { userInfo },
-// 			} = getState();
-// 			const config = {
-// 				headers: {
-// 					"Content-type": "application/json",
-// 					Authorization: `Bearer ${userInfo!.token}`,
-// 				},
-// 			};
-// 			await axios.put(`/api/products/${id}`, product, config);
-// 			dispatch({ type: PRODUCT_EDIT_SUCCESS });
-// 		} catch (error) {
-// 			dispatch({
-// 				type: PRODUCT_EDIT_FAIL,
-// 				payload:
-// 					error.response && error.response.data.message
-// 						? error.response.data.message
-// 						: error.message,
-// 			});
-// 		}
-// 	};
+export const editProduct =
+	(product: Product): AppThunk =>
+	async (dispatch, getState) => {
+		try {
+			dispatch({ type: PRODUCT_EDIT_REQUEST });
+			const {
+				userLogin: { userInfo },
+			} = getState();
+			const config = {
+				headers: {
+					"Content-type": "application/json",
+					Authorization: `Bearer ${userInfo!.token}`,
+				},
+			};
+			await axios.put(`/api/products/${product._id}`, product, config);
+			dispatch({ type: PRODUCT_EDIT_SUCCESS });
+		} catch (error) {
+			dispatch({
+				type: PRODUCT_EDIT_FAIL,
+				payload:
+					error.response && error.response.data.message
+						? error.response.data.message
+						: error.message,
+			});
+		}
+	};
