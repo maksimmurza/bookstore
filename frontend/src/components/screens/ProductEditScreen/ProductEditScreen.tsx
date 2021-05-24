@@ -21,6 +21,7 @@ import {
 	PRODUCT_EDIT_RESET,
 	PRODUCT_DETAILS_RESET,
 } from "../../../redux/constants/productConstants";
+import axios from "axios";
 
 const ProductEditScreen = ({
 	location,
@@ -34,6 +35,7 @@ const ProductEditScreen = ({
 	const [price, setPrice] = useState(0);
 	const [description, setDescription] = useState("");
 	const [inStock, setInStock] = useState(0);
+	const [uploading, setUploading] = useState(false);
 	const dispatch = useAppDispatch();
 
 	const { userInfo } = useAppSelector((state) => state.userLogin);
@@ -93,6 +95,29 @@ const ProductEditScreen = ({
 		}
 	};
 
+	const uploadFileHandler = async (event: FormEvent) => {
+		const target = event.target as HTMLInputElement;
+		const file = (target.files as FileList)[0];
+		const formData = new FormData(); // equal to multipart/form-data
+		formData.append("image", file);
+		setUploading(true);
+		try {
+			const config = {
+				headers: {
+					"Content-type": "multipart/form-data",
+				},
+			};
+
+			const { data } = await axios.post("/api/upload", formData, config);
+			setImage(data);
+			console.log(data);
+			setUploading(false);
+		} catch (error) {
+			console.log(error);
+			setUploading(false);
+		}
+	};
+
 	return (
 		<FormContainer>
 			<h3>Edit Product</h3>
@@ -132,6 +157,13 @@ const ProductEditScreen = ({
 						value={image}
 						onChange={(e) => setImage(e.target.value)}
 					></FormControl>
+					<Form.File
+						id="image-file"
+						custom
+						label="Choose file"
+						onChange={uploadFileHandler}
+					></Form.File>
+					{uploading && <Loader></Loader>}
 				</FormGroup>
 
 				<FormGroup controlId="category">
