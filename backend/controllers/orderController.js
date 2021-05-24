@@ -74,4 +74,14 @@ const getUserOrders = asyncHandler(async (req, res) => {
 	}
 });
 
-export { addOrder, getOrderById, updateOrderToPaid, getUserOrders };
+const getOrders = asyncHandler(async (req, res) => {
+	try {
+		const orders = await Order.find({}).populate("user", "id name");
+		res.json(orders);
+	} catch {
+		res.status(404);
+		throw new Error("Error while fetching orders");
+	}
+});
+
+export { addOrder, getOrderById, updateOrderToPaid, getUserOrders, getOrders };

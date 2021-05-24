@@ -14,6 +14,10 @@ import {
 	ORDER_LIST_USER_SUCCESS,
 	ORDER_LIST_USER_FAIL,
 	ORDER_LIST_USER_RESET,
+	ORDER_LIST_REQUEST,
+	ORDER_LIST_SUCCESS,
+	ORDER_LIST_FAIL,
+	ORDER_LIST_RESET,
 } from "../constants/orderConstants";
 import { AnyAction } from "redux";
 
@@ -94,6 +98,27 @@ export const userOrdersReducer = (
 		case ORDER_LIST_USER_FAIL:
 			return { loading: false, error: action.payload };
 		case ORDER_LIST_USER_RESET:
+			return { orders: [] as Array<Order> };
+		default:
+			return state;
+	}
+};
+
+export const orderListReducer = (
+	state: Partial<AppState> = { loading: true, orders: [] as Array<Order> },
+	action: AnyAction
+) => {
+	switch (action.type) {
+		case ORDER_LIST_REQUEST:
+			return { ...state, loading: true };
+		case ORDER_LIST_SUCCESS:
+			return {
+				loading: false,
+				orders: action.payload as Array<Order>,
+			};
+		case ORDER_LIST_FAIL:
+			return { loading: false, error: action.payload };
+		case ORDER_LIST_RESET:
 			return { orders: [] as Array<Order> };
 		default:
 			return state;
