@@ -28,3 +28,5 @@ yarn-error.log*
 .vscode
 
 frontend/src/react-app-env.d.ts
+
+**/image*
