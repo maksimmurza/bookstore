@@ -13,6 +13,7 @@ import {
 } from "../../../redux/actions/productActions";
 import { useStartLoading } from "../../../hooks";
 import { PRODUCT_CREATE_RESET } from "../../../redux/constants/productConstants";
+import { removeItem } from "../../../redux/actions/cartActions";
 
 const ProductListScreen = () => {
 	const dispatch = useAppDispatch();
@@ -63,6 +64,7 @@ const ProductListScreen = () => {
 	useEffect(() => {
 		if (deleteConfirmation) {
 			dispatch(deleteProduct(deletedProductId));
+			dispatch(removeItem(deletedProductId));
 			setDeleteConfirmation(false);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
