@@ -16,6 +16,10 @@ import {
 	ORDER_LIST_SUCCESS,
 	ORDER_LIST_FAIL,
 	ORDER_LIST_RESET,
+	ORDER_DELIVER_REQUEST,
+	ORDER_DELIVER_SUCCESS,
+	ORDER_DELIVER_FAIL,
+	ORDER_DELIVER_RESET,
 } from "../constants/orderConstants";
 import { AppThunk } from "../store";
 
@@ -150,3 +154,33 @@ export const getOrders = (): AppThunk => async (dispatch, getState) => {
 		});
 	}
 };
+
+export const deliverOrder =
+	(orderId: string): AppThunk =>
+	async (dispatch, getState) => {
+		try {
+			dispatch({ type: ORDER_DELIVER_REQUEST });
+			const {
+				userLogin: { userInfo },
+			} = getState();
+			const config = {
+				headers: {
+					Authorization: `Bearer ${userInfo!.token}`,
+				},
+			};
+			const { data } = await axios.put(
+				`/api/orders/${orderId}/deliver`,
+				{},
+				config
+			);
+			dispatch({ type: ORDER_DELIVER_SUCCESS, payload: data });
+		} catch (error) {
+			dispatch({
+				type: ORDER_DELIVER_FAIL,
+				payload:
+					error.response && error.response.data.message
+						? error.response.data.message
+						: error.message,
+			});
+		}
+	};
