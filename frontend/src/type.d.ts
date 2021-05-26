@@ -10,6 +10,7 @@ interface Product {
 	inStock: number;
 	rating: number;
 	numReviews: number;
+	reviews: Array<Review & { [prop: string]: string }>;
 	description: string;
 }
 
@@ -73,4 +74,11 @@ interface PaymentResult {
 
 interface RouteParams {
 	id: string;
+}
+
+interface Review {
+	rating: number;
+	comment: string;
+	name: string;
+	user: string;
 }

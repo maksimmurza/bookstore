@@ -16,6 +16,10 @@ import {
 	PRODUCT_CREATE_REQUEST,
 	PRODUCT_CREATE_SUCCESS,
 	PRODUCT_CREATE_FAIL,
+	PRODUCT_REVIEW_CREATE_REQUEST,
+	PRODUCT_REVIEW_CREATE_SUCCESS,
+	PRODUCT_REVIEW_CREATE_FAIL,
+	PRODUCT_REVIEW_CREATE_RESET,
 } from "../constants/productConstants";
 import { AppThunk } from "../store";
 
@@ -131,6 +135,36 @@ export const editProduct =
 		} catch (error) {
 			dispatch({
 				type: PRODUCT_EDIT_FAIL,
+				payload:
+					error.response && error.response.data.message
+						? error.response.data.message
+						: error.message,
+			});
+		}
+	};
+
+export const createProductReview =
+	(id: string, rating: number, comment: string): AppThunk =>
+	async (dispatch, getState) => {
+		try {
+			dispatch({ type: PRODUCT_REVIEW_CREATE_REQUEST });
+			const {
+				userLogin: { userInfo },
+			} = getState();
+			const config = {
+				headers: {
+					Authorization: `Bearer ${userInfo!.token}`,
+				},
+			};
+			await axios.post(
+				`/api/products/${id}/reviews`,
+				{ rating, comment },
+				config
+			);
+			dispatch({ type: PRODUCT_REVIEW_CREATE_SUCCESS });
+		} catch (error) {
+			dispatch({
+				type: PRODUCT_REVIEW_CREATE_FAIL,
 				payload:
 					error.response && error.response.data.message
 						? error.response.data.message
