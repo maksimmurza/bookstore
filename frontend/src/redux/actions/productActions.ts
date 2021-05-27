@@ -24,12 +24,12 @@ import {
 import { AppThunk } from "../store";
 
 export const listProducts =
-	(keyword = ""): AppThunk =>
+	(keyword = "", pageNumber = ""): AppThunk =>
 	async (dispatch) => {
 		try {
 			dispatch({ type: PRODUCT_LIST_REQUEST });
 			const { data } = await axios.get(
-				`/api/products?keyword=${keyword}`
+				`/api/products?keyword=${keyword}&pageNumber=${pageNumber}`
 			);
 			dispatch({
 				type: PRODUCT_LIST_SUCCESS,

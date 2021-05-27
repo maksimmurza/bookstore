@@ -32,6 +32,14 @@ function App() {
 						component={HomeScreen}
 					></Route>
 					<Route
+						path="/search/:keyword/page/:pageNumber"
+						component={HomeScreen}
+					></Route>
+					<Route
+						path="/page/:pageNumber"
+						component={HomeScreen}
+					></Route>
+					<Route
 						path="/product/:id"
 						component={ProductScreen}
 						exact

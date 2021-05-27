@@ -10,14 +10,15 @@ import { RouteComponentProps } from "react-router";
 
 const HomeScreen = ({ match }: RouteComponentProps<RouteParams>) => {
 	const keyword = match.params.keyword;
-	const { loading, error, products } = useAppSelector(
+	const pageNumber = match.params.pageNumber || "1";
+	const { loading, error, products, page, pages } = useAppSelector(
 		(state) => state.productList
 	);
 	const startLoading = useStartLoading(loading);
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
-		dispatch(listProducts(keyword));
+		dispatch(listProducts(keyword, pageNumber));
 	}, [dispatch, keyword]);
 
 	return (

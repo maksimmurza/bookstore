@@ -30,6 +30,8 @@ interface AppState {
 	error: any;
 	success: boolean;
 	message: object;
+	page: number;
+	pages: number;
 }
 
 interface UserInfo {
@@ -75,6 +77,7 @@ interface PaymentResult {
 interface RouteParams {
 	id: string;
 	keyword: string;
+	pageNumber: string;
 }
 
 interface Review {
