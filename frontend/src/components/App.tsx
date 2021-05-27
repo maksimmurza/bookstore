@@ -28,6 +28,10 @@ function App() {
 				<Container>
 					<Route path="/" component={HomeScreen} exact></Route>
 					<Route
+						path="/search/:keyword"
+						component={HomeScreen}
+					></Route>
+					<Route
 						path="/product/:id"
 						component={ProductScreen}
 						exact

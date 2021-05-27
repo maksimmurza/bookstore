@@ -6,8 +6,10 @@ import ProductCard from "../../ProductCard/ProductCard";
 import Loader from "../../Loader/Loader";
 import Message from "../../Message/Message";
 import { useStartLoading } from "../../../hooks";
+import { RouteComponentProps } from "react-router";
 
-const HomeScreen = () => {
+const HomeScreen = ({ match }: RouteComponentProps<RouteParams>) => {
+	const keyword = match.params.keyword;
 	const { loading, error, products } = useAppSelector(
 		(state) => state.productList
 	);
@@ -15,8 +17,8 @@ const HomeScreen = () => {
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
-		dispatch(listProducts());
-	}, [dispatch]);
+		dispatch(listProducts(keyword));
+	}, [dispatch, keyword]);
 
 	return (
 		<>

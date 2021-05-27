@@ -74,6 +74,7 @@ interface PaymentResult {
 
 interface RouteParams {
 	id: string;
+	keyword: string;
 }
 
 interface Review {

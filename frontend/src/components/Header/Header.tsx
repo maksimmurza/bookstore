@@ -5,6 +5,7 @@ import "./Header.scss";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { logout } from "../../redux/actions/userActions";
 import { userDetails } from "../../redux/actions/userActions";
+import SearchBox from "../SearchBox/SearchBox";
 
 const Header = () => {
 	const { userInfo } = useAppSelector((state) => state.userLogin);
@@ -34,6 +35,7 @@ const Header = () => {
 
 					<Navbar.Toggle aria-controls="basic-navbar-nav" />
 					<Navbar.Collapse id="basic-navbar-nav">
+						<SearchBox></SearchBox>
 						<Nav className="ml-auto">
 							<LinkContainer to="/cart">
 								<Nav.Link className="pr-4">
