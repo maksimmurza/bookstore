@@ -95,109 +95,108 @@ const ProductListScreen = ({ match }: RouteComponentProps<RouteParams>) => {
 					</Button>
 				</Col>
 			</Row>
-			{loading || startLoading || deleteLoading || createLoading ? (
+			{(loading || startLoading || deleteLoading || createLoading) && (
 				<Loader></Loader>
-			) : error || deleteError || createError ? (
-				<Message variant="danger">
+			)}
+			{(error || deleteError || createError) && (
+				<Message variant="danger" dismissible>
 					{error ? error : deleteError}
 				</Message>
-			) : (
-				products && (
-					<>
-						<Table striped bordered hover responsive>
-							<thead>
-								<tr>
-									<th>ID</th>
-									<th>NAME</th>
-									<th>PRICE</th>
-									<th>IN STOCK</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								{products.map((product) => (
-									<tr key={product._id}>
-										<td>{product._id}</td>
-										<td>{product.name}</td>
-										<td>{product.price}</td>
-										<td>{product.inStock}</td>
-										<td>
-											<ButtonGroup>
-												<LinkContainer
-													to={`/admin/product/${product._id}/edit`}
-												>
-													<Button
-														className="btn-sm"
-														variant="outline-info"
-													>
-														<PencilFill></PencilFill>
-													</Button>
-												</LinkContainer>
+			)}
+			{products && (
+				<>
+					<Table striped bordered hover responsive>
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>NAME</th>
+								<th>PRICE</th>
+								<th>IN STOCK</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							{products.map((product) => (
+								<tr key={product._id}>
+									<td>{product._id}</td>
+									<td>{product.name}</td>
+									<td>{product.price}</td>
+									<td>{product.inStock}</td>
+									<td>
+										<ButtonGroup>
+											<LinkContainer
+												to={`/admin/product/${product._id}/edit`}
+											>
 												<Button
 													className="btn-sm"
-													variant="outline-danger"
-													onClick={() =>
-														deleteProductHandler(
-															product._id
-														)
-													}
+													variant="outline-info"
 												>
-													<Trash></Trash>
+													<PencilFill></PencilFill>
 												</Button>
-											</ButtonGroup>
-										</td>
-									</tr>
-								))}
-							</tbody>
-						</Table>
-						<div>
-							{pages && page && (
-								<Pagination
-									pages={pages}
-									page={page}
-									isAdmin={userInfo?.isAdmin}
-									keyword={""}
-								></Pagination>
-							)}
-						</div>
-						<Modal
-							show={showDeleteDialog}
-							onHide={handleCloseDeleteDialog}
-							backdrop="static"
-							keyboard={false}
-						>
-							<Modal.Header closeButton>
-								<Modal.Title>
-									Are you sure you want to delete this
-									product?
-								</Modal.Title>
-							</Modal.Header>
-							<Modal.Body>
-								You will not be able to cancel this action!
-							</Modal.Body>
-							<Modal.Footer>
-								<Button
-									variant="secondary"
-									onClick={() => {
-										setDeleteConfirmation(false);
-										handleCloseDeleteDialog();
-									}}
-								>
-									Close
-								</Button>
-								<Button
-									variant="danger"
-									onClick={() => {
-										setDeleteConfirmation(true);
-										handleCloseDeleteDialog();
-									}}
-								>
-									Delete
-								</Button>
-							</Modal.Footer>
-						</Modal>
-					</>
-				)
+											</LinkContainer>
+											<Button
+												className="btn-sm"
+												variant="outline-danger"
+												onClick={() =>
+													deleteProductHandler(
+														product._id
+													)
+												}
+											>
+												<Trash></Trash>
+											</Button>
+										</ButtonGroup>
+									</td>
+								</tr>
+							))}
+						</tbody>
+					</Table>
+					<div>
+						{pages && page && (
+							<Pagination
+								pages={pages}
+								page={page}
+								isAdmin={userInfo?.isAdmin}
+								keyword={""}
+							></Pagination>
+						)}
+					</div>
+					<Modal
+						show={showDeleteDialog}
+						onHide={handleCloseDeleteDialog}
+						backdrop="static"
+						keyboard={false}
+					>
+						<Modal.Header closeButton>
+							<Modal.Title>
+								Are you sure you want to delete this product?
+							</Modal.Title>
+						</Modal.Header>
+						<Modal.Body>
+							You will not be able to cancel this action!
+						</Modal.Body>
+						<Modal.Footer>
+							<Button
+								variant="secondary"
+								onClick={() => {
+									setDeleteConfirmation(false);
+									handleCloseDeleteDialog();
+								}}
+							>
+								Close
+							</Button>
+							<Button
+								variant="danger"
+								onClick={() => {
+									setDeleteConfirmation(true);
+									handleCloseDeleteDialog();
+								}}
+							>
+								Delete
+							</Button>
+						</Modal.Footer>
+					</Modal>
+				</>
 			)}
 		</>
 	);
