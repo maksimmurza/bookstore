@@ -23,10 +23,10 @@ const Header = () => {
 	}, [dispatch, userInfo]);
 
 	return (
-		<header>
-			<Navbar bg="light" expand="lg" collapseOnSelect>
+		<header id="header">
+			<Navbar bg="light" expand="md" collapseOnSelect>
 				<Container>
-					<LinkContainer to="/">
+					<LinkContainer to="/" className="mr-5">
 						<Navbar.Brand className="link-to-main">
 							<div className="logo-container"></div>
 							<span className="pl-2">Book Shop</span>

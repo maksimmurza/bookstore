@@ -44,7 +44,7 @@ const CartScreen = ({
 			<Col md={8}>
 				<h3 className="mb-3">Shopping Cart</h3>
 				{cartItems!.length === 0 ? (
-					<Message>
+					<Message variant="light">
 						You shopping cart is empty <Link to="/">Go back</Link>
 					</Message>
 				) : (

@@ -16,6 +16,7 @@ import {
 	ORDER_DELIVER_RESET,
 	ORDER_DETAILS_RESET,
 } from "../../../redux/constants/orderConstants";
+import "./OrderScreen.scss";
 
 const OrderScreen = ({
 	match,
@@ -95,17 +96,24 @@ const OrderScreen = ({
 				<Message variant="danger">{error}</Message>
 			) : (
 				<>
-					<h3>Order {order!._id}</h3>
 					<Row>
 						<Col md={8}>
+							<h3 className="order-info-header">Order details</h3>
+							<span
+								title="Order ID"
+								className="order-info-id-span mt-1"
+							>
+								<strong>ID: </strong>
+								{order!._id}
+							</span>
 							<ListGroup variant="flush">
 								<ListGroup.Item>
 									<h4>Shipping</h4>
-									<p>
+									<p className="order-info-p">
 										<strong>Name: </strong>
 										{order!.user?.name}{" "}
 									</p>
-									<p>
+									<p className="order-info-p">
 										<strong>Email: </strong>
 										<a
 											href={`mailto:${
@@ -115,7 +123,7 @@ const OrderScreen = ({
 											{order!.user?.email}
 										</a>
 									</p>
-									<p>
+									<p className="order-info-p">
 										<strong>Address: </strong>
 										{`${order!.shippingAddress?.country}, ${
 											order!.shippingAddress?.city
@@ -128,7 +136,7 @@ const OrderScreen = ({
 										variant={
 											order!.isDelivered
 												? "success"
-												: "secondary"
+												: "light"
 										}
 									>
 										{order!.isDelivered
@@ -142,15 +150,13 @@ const OrderScreen = ({
 								</ListGroup.Item>
 								<ListGroup.Item>
 									<h4>Payment Method</h4>
-									<p>
+									<p className="order-info-p">
 										<strong>Method: </strong>
 										{order!.paymentMethod}
 									</p>
 									<Message
 										variant={
-											order!.isPaid
-												? "success"
-												: "secondary"
+											order!.isPaid ? "success" : "light"
 										}
 									>
 										{order!.isPaid
@@ -264,7 +270,7 @@ const OrderScreen = ({
 											!order?.isDelivered && (
 												<ListGroup.Item>
 													<Button
-														variant="success"
+														variant="primary"
 														className="btn-block"
 														onClick={
 															successDeliverHandler

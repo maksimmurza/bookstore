@@ -39,33 +39,29 @@ const ProfileScreen = ({ location, history }: RouteChildrenProps) => {
 		error: errorUserOrders,
 	} = useAppSelector((state) => state.userOrders);
 
-	useEffect(() => {
-		if (!userInfo) {
-			history.push("/login");
-		} else {
-			if (!user) {
-				dispatch(userDetails("profile"));
-			} else {
-				setName(user!.name);
-				setEmail(user!.email);
-			}
-		}
-	}, [dispatch, history, success, user, userInfo]);
-
 	// Fetch once. Independent from updating user info
 	useEffect(() => {
 		dispatch(getUserOrders());
 	}, []);
 
 	useEffect(() => {
-		if (success) {
-			dispatch(userDetails("profile"));
-			setSuccessUpdate(success);
+		if (!userInfo) {
+			history.push("/login");
+		} else {
+			if (!user && !loading) {
+				dispatch(userDetails("profile"));
+			} else if (user) {
+				setName(user!.name);
+				setEmail(user!.email);
+			}
+
+			if (success) {
+				dispatch(userDetails("profile"));
+				success && setSuccessUpdate(success);
+				dispatch({ type: USER_EDIT_RESET });
+			}
 		}
-		return () => {
-			dispatch({ type: USER_EDIT_RESET });
-		};
-	}, [success, dispatch]);
+	}, [dispatch, history, success, user, userInfo]);
 
 	const submitHandler = (event: FormEvent) => {
 		event.preventDefault();

@@ -180,7 +180,7 @@ const OrdersScreen = () => {
 					</Modal>
 				</>
 			) : (
-				<Message variant="primary">No orders yet</Message>
+				<Message variant="info">No orders yet</Message>
 			)}
 		</>
 	);
