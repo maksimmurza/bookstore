@@ -1,7 +1,7 @@
 import React, { useState, useEffect, FormEvent } from "react";
 import { Button, Table, ButtonGroup, Modal, Row, Col } from "react-bootstrap";
 import { PencilFill, Trash, Plus } from "react-bootstrap-icons";
-import { useHistory } from "react-router-dom";
+import { RouteComponentProps, useHistory } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import Loader from "../../Loader/Loader";
@@ -14,8 +14,11 @@ import {
 import { useStartLoading } from "../../../hooks";
 import { PRODUCT_CREATE_RESET } from "../../../redux/constants/productConstants";
 import { removeItem } from "../../../redux/actions/cartActions";
+import Pagination from "../../Pagination/PaginationComponent";
 
-const ProductListScreen = () => {
+const ProductListScreen = ({ match }: RouteComponentProps<RouteParams>) => {
+	const pageNumber = match.params.pageNumber || "1";
+
 	const dispatch = useAppDispatch();
 	const history = useHistory();
 	const [showDeleteDialog, setShowDeleteDialog] = useState(false);
@@ -25,7 +28,7 @@ const ProductListScreen = () => {
 	const handleCloseDeleteDialog = () => setShowDeleteDialog(false);
 	const handleShowDeleteDialog = () => setShowDeleteDialog(true);
 
-	const { loading, error, products } = useAppSelector(
+	const { loading, error, products, page, pages } = useAppSelector(
 		(state) => state.productList
 	);
 
@@ -51,8 +54,8 @@ const ProductListScreen = () => {
 			history.push("/login");
 		}
 
-		dispatch(listProducts());
-	}, [deleteSuccess, userInfo?.isAdmin]);
+		dispatch(listProducts("", pageNumber));
+	}, [deleteSuccess, userInfo?.isAdmin, pageNumber]);
 
 	useEffect(() => {
 		if (createSuccess && product) {
@@ -147,6 +150,16 @@ const ProductListScreen = () => {
 								))}
 							</tbody>
 						</Table>
+						<div>
+							{pages && page && (
+								<Pagination
+									pages={pages}
+									page={page}
+									isAdmin={userInfo?.isAdmin}
+									keyword={""}
+								></Pagination>
+							)}
+						</div>
 						<Modal
 							show={showDeleteDialog}
 							onHide={handleCloseDeleteDialog}

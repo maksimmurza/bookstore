@@ -7,6 +7,7 @@ import Loader from "../../Loader/Loader";
 import Message from "../../Message/Message";
 import { useStartLoading } from "../../../hooks";
 import { RouteComponentProps } from "react-router";
+import Pagination from "../../Pagination/PaginationComponent";
 
 const HomeScreen = ({ match }: RouteComponentProps<RouteParams>) => {
 	const keyword = match.params.keyword;
@@ -19,7 +20,7 @@ const HomeScreen = ({ match }: RouteComponentProps<RouteParams>) => {
 
 	useEffect(() => {
 		dispatch(listProducts(keyword, pageNumber));
-	}, [dispatch, keyword]);
+	}, [dispatch, keyword, pageNumber]);
 
 	return (
 		<>
@@ -31,13 +32,24 @@ const HomeScreen = ({ match }: RouteComponentProps<RouteParams>) => {
 			) : error ? (
 				<Message variant="danger">{error}</Message>
 			) : (
-				<Row>
-					{products?.map((product) => (
-						<Col key={product._id} sm={6} md={6} lg={4} xl={3}>
-							<ProductCard {...product}></ProductCard>
-						</Col>
-					))}
-				</Row>
+				<>
+					<Row>
+						{products?.map((product) => (
+							<Col key={product._id} sm={6} md={6} lg={4} xl={3}>
+								<ProductCard {...product}></ProductCard>
+							</Col>
+						))}
+					</Row>
+					<Row className="justify-content-center">
+						{pages && page && (
+							<Pagination
+								pages={pages}
+								page={page}
+								keyword={keyword ? keyword : ""}
+							></Pagination>
+						)}
+					</Row>
+				</>
 			)}
 		</>
 	);
