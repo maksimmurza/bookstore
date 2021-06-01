@@ -36,7 +36,9 @@ const ProductCard = (props: Product) => {
 					<Card.Text as="div">
 						<Rating
 							rating={props.rating}
-							text={`${props.numReviews} reviews`}
+							text={`${props.numReviews} review${
+								props.numReviews > 1 ? "s" : ""
+							}`}
 							color="gold"
 						></Rating>
 					</Card.Text>

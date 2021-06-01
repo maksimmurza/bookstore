@@ -205,7 +205,7 @@ const ProfileScreen = ({ location, history }: RouteChildrenProps) => {
 						</tbody>
 					</Table>
 				) : (
-					<Message variant="primary">You have no orders yet</Message>
+					<Message variant="light">You have no orders yet</Message>
 				)}
 			</Col>
 		</Row>

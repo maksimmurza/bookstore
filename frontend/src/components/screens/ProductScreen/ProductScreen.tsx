@@ -107,7 +107,9 @@ const ProductScreen = () => {
 								<ListGroup.Item>
 									<Rating
 										rating={Number(product?.rating)}
-										text={`${product?.numReviews} reviews`}
+										text={`${product.numReviews} review${
+											product.numReviews > 1 ? "s" : ""
+										}`}
 										color="brown"
 									></Rating>
 								</ListGroup.Item>
@@ -222,7 +224,9 @@ const ProductScreen = () => {
 						<Col md={6}>
 							<h3>Reviews</h3>
 							{product.reviews.length === 0 && (
-								<Message>No reviews yet</Message>
+								<Message variant="light">
+									No reviews yet
+								</Message>
 							)}
 							<ListGroup variant="flush">
 								{product.reviews.map((r) => (
@@ -244,7 +248,7 @@ const ProductScreen = () => {
 										</Message>
 									)}
 									{!userInfo ? (
-										<Message>
+										<Message variant="info">
 											If you want to write review you must
 											log in
 										</Message>
