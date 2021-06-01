@@ -1,4 +1,5 @@
 import React, { FormEvent, useEffect, useState } from "react";
+import ReactDOM from "react-dom";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import {
 	detailsProduct,
@@ -19,6 +20,7 @@ import {
 	ListGroupItem,
 	FormControl,
 	Form,
+	Spinner,
 } from "react-bootstrap";
 import { addItem } from "../../../redux/actions/cartActions";
 import "./ProductScreen.scss";
@@ -31,6 +33,7 @@ const ProductScreen = () => {
 	);
 	console.log(product);
 	const startLoading = useStartLoading(loading);
+	const [imageLoading, setImageLoading] = useState(true);
 	const [inCart, setInCart] = useState(false);
 	const { id }: params = useParams();
 	const history = useHistory();
@@ -66,6 +69,19 @@ const ProductScreen = () => {
 		dispatch(createProductReview(id, Number(rating), comment));
 	};
 
+	const image = (
+		<Image
+			src={product?.image}
+			alt={product?.name}
+			className="product-image"
+			onLoad={() => {
+				setImageLoading(false);
+			}}
+			fluid
+			style={{ display: `${imageLoading ? "none" : "block"}` }}
+		></Image>
+	);
+
 	return (
 		<>
 			<Button
@@ -92,12 +108,14 @@ const ProductScreen = () => {
 								overflow: "hidden",
 							}}
 						>
-							<Image
-								className="product-image"
-								src={product?.image}
-								alt={product?.name}
-								fluid
-							></Image>
+							{image}
+							{imageLoading && (
+								<Spinner
+									as="span"
+									animation="grow"
+									variant="light"
+								/>
+							)}
 						</Col>
 						<Col md={5}>
 							<ListGroup variant="flush">

@@ -1,7 +1,8 @@
-import React, { FormEvent, useState } from "react";
+import React, { ComponentProps, FormEvent, useState } from "react";
 import { Form, Button, InputGroup } from "react-bootstrap";
 import { Search } from "react-bootstrap-icons";
 import { useHistory } from "react-router";
+import "./SearchBox.scss";
 
 const SearchBox = () => {
 	const [keyword, setKeyword] = useState("");
@@ -17,7 +18,7 @@ const SearchBox = () => {
 	};
 
 	return (
-		<Form onSubmit={submitHandler} inline>
+		<Form onSubmit={submitHandler} inline className="search-form">
 			<InputGroup>
 				<Form.Control
 					type="text"

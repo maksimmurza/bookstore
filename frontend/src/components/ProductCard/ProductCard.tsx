@@ -1,10 +1,25 @@
-import React from "react";
-import { Card } from "react-bootstrap";
+import React, { useState } from "react";
+import { Card, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./ProductCard.scss";
 import Rating from "../Rating/Rating";
 
 const ProductCard = (props: Product) => {
+	const [imageLoading, setImageLoading] = useState(true);
+	const image = (
+		<Card.Img
+			src={props.image}
+			variant="top"
+			onLoad={() => {
+				setImageLoading(false);
+			}}
+			style={{
+				display: `${imageLoading ? "none" : "block"}`,
+				height: "calc(150px + 5vh)",
+				width: "auto",
+			}}
+		></Card.Img>
+	);
 	return (
 		<>
 			<Card className="my-3 p-3 rounded">
@@ -16,14 +31,10 @@ const ProductCard = (props: Product) => {
 						overflow: "hidden",
 					}}
 				>
-					<Card.Img
-						src={props.image}
-						variant="top"
-						style={{
-							height: "calc(150px + 5vh)",
-							width: "auto",
-						}}
-					></Card.Img>
+					{image}
+					{imageLoading && (
+						<Spinner as="span" animation="grow" variant="light" />
+					)}
 				</Link>
 
 				<Card.Body>
