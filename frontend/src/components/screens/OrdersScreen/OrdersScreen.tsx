@@ -59,119 +59,128 @@ const OrdersScreen = () => {
 				<Loader></Loader>
 			) : error || deleteError ? (
 				<Message variant="danger">{error}</Message>
-			) : (
-				orders && (
-					<>
-						<Table striped bordered hover responsive>
-							<thead>
-								<tr>
-									<th>ID</th>
-									<th>USER</th>
-									<th>TOTAL PRICE</th>
-									<th>DATE</th>
-									<th>PAID</th>
-									<th>IS DELIVERED</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								{orders.map((order) => (
-									<tr key={order._id}>
-										<td>{order._id}</td>
-										<td>{order.user?.name}</td>
-										<td>{order.totalPrice}</td>
-										<td>
-											{order.createdAt.substring(0, 10)}
-										</td>
-										<td>
-											{order.isPaid ? (
-												order.paidAt.substring(0, 10)
-											) : (
-												<X
-													size="1.5em"
-													color="gray"
-												></X>
-											)}
-										</td>
-										<td>
-											{order.isDelivered ? (
-												order.deliveredAt.substring(
-													0,
-													10
-												)
-											) : (
-												<X
-													size="1.5em"
-													color="gray"
-												></X>
-											)}
-										</td>
-										<td>
-											<ButtonGroup>
-												<LinkContainer
-													to={`/orders/${order._id}`}
-												>
-													<Button
-														className="btn-sm"
-														variant="outline-info"
-													>
-														Details
-													</Button>
-												</LinkContainer>
+			) : orders && orders.length > 0 ? (
+				<>
+					<Table striped bordered hover responsive>
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>USER</th>
+								<th>TOTAL PRICE</th>
+								<th>DATE</th>
+								<th>PAID</th>
+								<th>IS DELIVERED</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							{orders.map((order) => (
+								<tr key={order._id}>
+									<td>{order._id}</td>
+									<td>{order.user?.name}</td>
+									<td>{order.totalPrice}</td>
+									<td
+										title={`${new Date(
+											order.createdAt
+										).toLocaleTimeString()}`}
+									>
+										{new Date(
+											order.createdAt
+										).toLocaleDateString()}
+									</td>
+									<td
+										title={`${new Date(
+											order.paidAt
+										).toLocaleTimeString()}`}
+									>
+										{order.isPaid ? (
+											new Date(
+												order.paidAt
+											).toLocaleDateString()
+										) : (
+											<X size="1.5em" color="gray"></X>
+										)}
+									</td>
+									<td
+										title={`${new Date(
+											order.deliveredAt
+										).toLocaleTimeString()}`}
+									>
+										{order.isDelivered ? (
+											new Date(
+												order.deliveredAt
+											).toLocaleDateString()
+										) : (
+											<X size="1.5em" color="gray"></X>
+										)}
+									</td>
+									<td>
+										<ButtonGroup>
+											<LinkContainer
+												to={`/orders/${order._id}`}
+											>
 												<Button
 													className="btn-sm"
-													variant="outline-danger"
-													onClick={() =>
-														deleteOrderHandler(
-															order._id
-														)
-													}
+													variant="outline-info"
 												>
-													<Trash></Trash>
+													Details
 												</Button>
-											</ButtonGroup>
-										</td>
-									</tr>
-								))}
-							</tbody>
-						</Table>
-						<Modal
-							show={showDeleteDialog}
-							onHide={handleCloseDeleteDialog}
-							backdrop="static"
-							keyboard={false}
-						>
-							<Modal.Header closeButton>
-								<Modal.Title>
-									Are you sure you want to delete the user?
-								</Modal.Title>
-							</Modal.Header>
-							<Modal.Body>
-								You will not be able to cancel this action!
-							</Modal.Body>
-							<Modal.Footer>
-								<Button
-									variant="secondary"
-									onClick={() => {
-										setDeleteConfirmation(false);
-										handleCloseDeleteDialog();
-									}}
-								>
-									Close
-								</Button>
-								<Button
-									variant="danger"
-									onClick={() => {
-										setDeleteConfirmation(true);
-										handleCloseDeleteDialog();
-									}}
-								>
-									Delete
-								</Button>
-							</Modal.Footer>
-						</Modal>
-					</>
-				)
+											</LinkContainer>
+											<Button
+												className="btn-sm"
+												variant="outline-danger"
+												onClick={() =>
+													deleteOrderHandler(
+														order._id
+													)
+												}
+											>
+												<Trash></Trash>
+											</Button>
+										</ButtonGroup>
+									</td>
+								</tr>
+							))}
+						</tbody>
+					</Table>
+					<Modal
+						show={showDeleteDialog}
+						onHide={handleCloseDeleteDialog}
+						backdrop="static"
+						keyboard={false}
+					>
+						<Modal.Header closeButton>
+							<Modal.Title>
+								Are you sure you want to delete the user?
+							</Modal.Title>
+						</Modal.Header>
+						<Modal.Body>
+							You will not be able to cancel this action!
+						</Modal.Body>
+						<Modal.Footer>
+							<Button
+								variant="secondary"
+								onClick={() => {
+									setDeleteConfirmation(false);
+									handleCloseDeleteDialog();
+								}}
+							>
+								Close
+							</Button>
+							<Button
+								variant="danger"
+								onClick={() => {
+									setDeleteConfirmation(true);
+									handleCloseDeleteDialog();
+								}}
+							>
+								Delete
+							</Button>
+						</Modal.Footer>
+					</Modal>
+				</>
+			) : (
+				<Message variant="primary">No orders yet</Message>
 			)}
 		</>
 	);

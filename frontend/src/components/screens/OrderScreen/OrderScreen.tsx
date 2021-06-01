@@ -80,8 +80,8 @@ const OrderScreen = ({
 
 	let itemsPrice;
 
-	if (!loading) {
-		itemsPrice = order!.orderItems.reduce(
+	if (!loading && order) {
+		itemsPrice = order.orderItems.reduce(
 			(acc, item) => acc + item.quantity * item.price,
 			0
 		);
@@ -132,9 +132,11 @@ const OrderScreen = ({
 										}
 									>
 										{order!.isDelivered
-											? `Delivered on ${
+											? `Delivered on ${new Date(
 													order!.deliveredAt
-											  }`
+											  ).toLocaleDateString()}, ${new Date(
+													order!.deliveredAt
+											  ).toLocaleTimeString()}`
 											: `Order not delivered`}
 									</Message>
 								</ListGroup.Item>
@@ -152,7 +154,11 @@ const OrderScreen = ({
 										}
 									>
 										{order!.isPaid
-											? `Paid on ${order!.paidAt}`
+											? `Paid on ${new Date(
+													order!.paidAt
+											  ).toLocaleDateString()}, ${new Date(
+													order!.paidAt
+											  ).toLocaleTimeString()}`
 											: `Order not paid`}
 									</Message>
 								</ListGroup.Item>
@@ -234,9 +240,7 @@ const OrderScreen = ({
 												<Col>£{order!.totalPrice}</Col>
 											</Row>
 										</ListGroup.Item>
-										{!order!.isPaid &&
-										userInfo &&
-										!userInfo.isAdmin ? (
+										{!order!.isPaid && userInfo && (
 											<ListGroup.Item>
 												{loadingPay && (
 													<Loader></Loader>
@@ -254,8 +258,8 @@ const OrderScreen = ({
 													></PayPalButton>
 												)}
 											</ListGroup.Item>
-										) : (
-											userInfo &&
+										)}
+										{userInfo &&
 											userInfo.isAdmin &&
 											!order?.isDelivered && (
 												<ListGroup.Item>
@@ -269,8 +273,7 @@ const OrderScreen = ({
 														Mark as delivered
 													</Button>
 												</ListGroup.Item>
-											)
-										)}
+											)}
 										{error && (
 											<ListGroup.Item>
 												<Message variant="danger">

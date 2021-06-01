@@ -151,7 +151,7 @@ const ProductListScreen = ({ match }: RouteComponentProps<RouteParams>) => {
 							))}
 						</tbody>
 					</Table>
-					<div>
+					<Row className="justify-content-center">
 						{pages && page && (
 							<Pagination
 								pages={pages}
@@ -160,7 +160,7 @@ const ProductListScreen = ({ match }: RouteComponentProps<RouteParams>) => {
 								keyword={""}
 							></Pagination>
 						)}
-					</div>
+					</Row>
 					<Modal
 						show={showDeleteDialog}
 						onHide={handleCloseDeleteDialog}
