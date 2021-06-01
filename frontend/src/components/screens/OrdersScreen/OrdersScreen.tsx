@@ -6,7 +6,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import Loader from "../../Loader/Loader";
 import Message from "../../Message/Message";
-import { getOrders } from "../../../redux/actions/orderActions";
+import { getOrders, deleteOrder } from "../../../redux/actions/orderActions";
 import { useStartLoading } from "../../../hooks";
 
 const OrdersScreen = () => {
@@ -23,30 +23,29 @@ const OrdersScreen = () => {
 		(state) => state.orderList
 	);
 	const startLoading = useStartLoading(loading);
-	// const {
-	// 	loading: deleteLoading,
-	// 	error: deleteError,
-	// 	success,
-	// } = useAppSelector((state) => state.userDelete);
+	const {
+		loading: deleteLoading,
+		error: deleteError,
+		success: deleteSuccess,
+	} = useAppSelector((state) => state.orderDelete);
 	const { userInfo } = useAppSelector((state) => state.userLogin);
 
 	useEffect(() => {
 		dispatch(getOrders());
-	}, [dispatch /*success*/]);
+	}, [dispatch, deleteSuccess]);
 
-	// const deleteUserHandler = (id: string) => {
-	// 	setDeletedUserId(id);
-	// 	handleShowDeleteDialog();
-	// };
+	const deleteOrderHandler = (id: string) => {
+		setDeletedOrderId(id);
+		handleShowDeleteDialog();
+	};
 
-	// useEffect(() => {
-	// 	if (deleteConfirmation) {
-	// 		dispatch(deleteUser(deletedUserId));
-	// 		setDeleteConfirmation(false);
-	// 	}
-	// }, [deleteConfirmation, dispatch, deletedUserId]);
+	useEffect(() => {
+		if (deleteConfirmation) {
+			dispatch(deleteOrder(deletedOrderId));
+			setDeleteConfirmation(false);
+		}
+	}, [deleteConfirmation, dispatch, deletedOrderId]);
 
-	// stop displaying user list if admin logged out
 	useEffect(() => {
 		if (!userInfo?.isAdmin) {
 			history.push("/login");
@@ -56,9 +55,9 @@ const OrdersScreen = () => {
 	return (
 		<>
 			<h3>Orders</h3>
-			{loading || startLoading ? (
+			{loading || startLoading || deleteLoading ? (
 				<Loader></Loader>
-			) : error ? (
+			) : error || deleteError ? (
 				<Message variant="danger">{error}</Message>
 			) : (
 				orders && (
@@ -122,11 +121,10 @@ const OrdersScreen = () => {
 												<Button
 													className="btn-sm"
 													variant="outline-danger"
-													onClick={
-														() => 0
-														// deleteUserHandler(
-														// 	order._id
-														// )
+													onClick={() =>
+														deleteOrderHandler(
+															order._id
+														)
 													}
 												>
 													<Trash></Trash>

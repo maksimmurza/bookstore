@@ -98,6 +98,17 @@ const updateOrderToDeliver = asyncHandler(async (req, res) => {
 	}
 });
 
+const deleteOrder = asyncHandler(async (req, res) => {
+	const order = await Order.findById(req.params.id);
+	if (order) {
+		await order.remove();
+		res.json({ message: "Order successfuly deleted" });
+	} else {
+		res.status(404);
+		throw new Error("Order not found");
+	}
+});
+
 export {
 	addOrder,
 	getOrderById,
@@ -105,4 +116,5 @@ export {
 	getUserOrders,
 	getOrders,
 	updateOrderToDeliver,
+	deleteOrder,
 };

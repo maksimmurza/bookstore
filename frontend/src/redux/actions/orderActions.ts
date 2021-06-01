@@ -20,6 +20,10 @@ import {
 	ORDER_DELIVER_SUCCESS,
 	ORDER_DELIVER_FAIL,
 	ORDER_DELIVER_RESET,
+	ORDER_DELETE_REQUEST,
+	ORDER_DELETE_SUCCESS,
+	ORDER_DELETE_FAIL,
+	ORDER_DELETE_RESET,
 } from "../constants/orderConstants";
 import { AppThunk } from "../store";
 
@@ -177,6 +181,34 @@ export const deliverOrder =
 		} catch (error) {
 			dispatch({
 				type: ORDER_DELIVER_FAIL,
+				payload:
+					error.response && error.response.data.message
+						? error.response.data.message
+						: error.message,
+			});
+		}
+	};
+export const deleteOrder =
+	(orderId: string): AppThunk =>
+	async (dispatch, getState) => {
+		try {
+			dispatch({ type: ORDER_DELETE_REQUEST });
+			const {
+				userLogin: { userInfo },
+			} = getState();
+			const config = {
+				headers: {
+					Authorization: `Bearer ${userInfo!.token}`,
+				},
+			};
+			const { data } = await axios.delete(
+				`/api/orders/${orderId}`,
+				config
+			);
+			dispatch({ type: ORDER_DELETE_SUCCESS, payload: data });
+		} catch (error) {
+			dispatch({
+				type: ORDER_DELETE_FAIL,
 				payload:
 					error.response && error.response.data.message
 						? error.response.data.message

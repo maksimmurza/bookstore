@@ -15,6 +15,7 @@ import {
 	orderListReducer,
 	userOrdersReducer,
 	orderDeliverReducer,
+	orderDeleteReducer,
 } from "./reducers/orderReducers";
 import {
 	userDetailsReducer,
@@ -71,6 +72,7 @@ export const store = configureStore({
 		orderDetails: orderDetailsReducer,
 		orderPay: orderPayReducer,
 		orderDeliver: orderDeliverReducer,
+		orderDelete: orderDeleteReducer,
 		orderList: orderListReducer,
 		userOrders: userOrdersReducer,
 		userList: userListReducer,
