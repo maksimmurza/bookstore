@@ -48,7 +48,7 @@ const ProfileScreen = ({ location, history }: RouteChildrenProps) => {
 		if (!userInfo) {
 			history.push("/login");
 		} else {
-			if (!user && !loading) {
+			if ((!user || user!._id !== userInfo._id) && !loading) {
 				dispatch(userDetails("profile"));
 			} else if (user) {
 				setName(user!.name);

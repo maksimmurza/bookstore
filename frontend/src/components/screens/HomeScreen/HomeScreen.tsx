@@ -24,9 +24,15 @@ const HomeScreen = ({ match }: RouteComponentProps<RouteParams>) => {
 
 	return (
 		<>
-			<h3>
-				<i>Latest</i>
-			</h3>
+			{keyword ? (
+				<h3>
+					<i>Search results</i>
+				</h3>
+			) : (
+				<h3>
+					<i>Latest</i>
+				</h3>
+			)}
 			{loading || startLoading ? (
 				<Loader></Loader>
 			) : error ? (
@@ -40,15 +46,18 @@ const HomeScreen = ({ match }: RouteComponentProps<RouteParams>) => {
 							</Col>
 						))}
 					</Row>
-					<Row className="justify-content-center">
-						{pages && page && (
+
+					{pages && page ? (
+						<Row className="justify-content-center">
 							<Pagination
 								pages={pages}
 								page={page}
 								keyword={keyword ? keyword : ""}
 							></Pagination>
-						)}
-					</Row>
+						</Row>
+					) : (
+						<Message variant="light">No results</Message>
+					)}
 				</>
 			)}
 		</>
