@@ -9,18 +9,18 @@ import SearchBox from "../SearchBox/SearchBox";
 
 const Header = () => {
 	const { userInfo } = useAppSelector((state) => state.userLogin);
-	const { user } = useAppSelector((state) => state.userDetails);
+	// const { user } = useAppSelector((state) => state.userDetails);
 	const dispatch = useAppDispatch();
 
 	const logoutHandler = () => {
 		dispatch(logout());
 	};
 
-	useEffect(() => {
-		if (userInfo) {
-			dispatch(userDetails("profile", userInfo.token));
-		}
-	}, [dispatch, userInfo]);
+	// useEffect(() => {
+	// 	if (userInfo) {
+	// 		dispatch(userDetails("profile", userInfo.token));
+	// 	}
+	// }, [dispatch, userInfo]);
 
 	return (
 		<header id="header">
@@ -45,7 +45,8 @@ const Header = () => {
 							</LinkContainer>
 							{userInfo ? (
 								<NavDropdown
-									title={user ? user!.name : userInfo!.name}
+									// title={user ? user!.name : userInfo!.name}
+									title={userInfo!.name}
 									id="user-account"
 								>
 									<LinkContainer to="/profile">

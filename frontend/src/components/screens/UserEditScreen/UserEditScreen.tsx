@@ -28,10 +28,6 @@ const UserEditScreen = ({
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [message, setMessage] = useState("");
 
-	const redirect = location.search
-		? location.search.split("=")[1]
-		: "/admin/userList";
-
 	const dispatch = useAppDispatch();
 	const { success } = useAppSelector((state) => state.userEdit);
 	const { loading, user, error } = useAppSelector(

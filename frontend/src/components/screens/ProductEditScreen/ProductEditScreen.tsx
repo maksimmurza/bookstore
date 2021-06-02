@@ -7,6 +7,7 @@ import {
 	FormGroup,
 	FormLabel,
 	FormControl,
+	InputGroup,
 } from "react-bootstrap";
 import { Link, RouteChildrenProps } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
@@ -150,19 +151,23 @@ const ProductEditScreen = ({
 
 				<FormGroup controlId="image">
 					<FormLabel>Image</FormLabel>
-					<FormControl
-						type="text"
-						required
-						placeholder="Enter image URL"
-						value={image}
-						onChange={(e) => setImage(e.target.value)}
-					></FormControl>
-					<Form.File
-						id="image-file"
-						custom
-						label="Choose file"
-						onChange={uploadFileHandler}
-					></Form.File>
+					<InputGroup>
+						<FormControl
+							style={{ width: "60%" }}
+							type="text"
+							required
+							placeholder="Enter image URL"
+							value={image}
+							onChange={(e) => setImage(e.target.value)}
+						></FormControl>
+						<Form.File
+							style={{ width: "40%" }}
+							id="image-file"
+							custom
+							label="Choose file"
+							onChange={uploadFileHandler}
+						></Form.File>
+					</InputGroup>
 					{uploading && <Loader></Loader>}
 				</FormGroup>
 
@@ -192,6 +197,8 @@ const ProductEditScreen = ({
 					<FormLabel>Description</FormLabel>
 					<FormControl
 						type="text"
+						style={{ height: "150px" }}
+						as="textarea"
 						required
 						placeholder="Product description"
 						value={description}
