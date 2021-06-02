@@ -177,17 +177,6 @@ const ProductEditScreen = ({
 					></FormControl>
 				</FormGroup>
 
-				<FormGroup controlId="brand">
-					<FormLabel>Brand</FormLabel>
-					<FormControl
-						type="text"
-						required
-						placeholder="Enter brand"
-						value={brand}
-						onChange={(e) => setBrand(e.target.value)}
-					></FormControl>
-				</FormGroup>
-
 				<FormGroup controlId="inStock">
 					<FormLabel>In stock</FormLabel>
 					<FormControl

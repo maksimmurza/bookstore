@@ -132,14 +132,6 @@ const ProductScreen = () => {
 									></Rating>
 								</ListGroup.Item>
 								<ListGroup.Item>
-									<span className="mr-3">
-										{product?.info}
-									</span>
-									<span className="brand-name">
-										<strong>{product?.brand}</strong>
-									</span>
-								</ListGroup.Item>
-								<ListGroup.Item>
 									<p>{product?.description}</p>
 								</ListGroup.Item>
 							</ListGroup>
@@ -181,7 +173,7 @@ const ProductScreen = () => {
 												<Col>
 													<FormControl
 														as="input"
-														type="numbers"
+														type="number"
 														value={qty}
 														placeholder="0"
 														onChange={(e) => {
