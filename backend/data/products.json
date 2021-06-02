@@ -360,5 +360,29 @@
 		"rating": 4,
 		"numReviews": 5,
 		"description": "Between two world wars, the Bauhaus School of Art and Design changed the face of modernity. Realized with the Bauhaus-Archiv in Berlin, this updated edition celebrates the school’s centennial, gathering 550 illustrations across 400 pages, including architectural plans and biographies of key figures like Walter Gropius, Paul Klee, and Marianne Brandt—the ultimate guide."
+	},
+	{
+		"name": "Racinet. The Costume History",
+		"image": "/img/The-costumes-of-history.png",
+		"info": "Hardcover, 14 x 19.5 cm, 1.30 kg, 752 pages",
+		"category": "books",
+		"brand": "Taschen",
+		"price": 60,
+		"inStock": 4,
+		"rating": 4,
+		"numReviews": 5,
+		"description": "Racinet’s Costume History is a landmark in the study of clothing and style. From Eskimo attire to high French couture, this unrivalled encyclopedia is an invaluable reference for students, designers, artists, illustrators, and historians, and anyone interested in style."
+	},
+	{
+		"name": "Frédéric Chaubin. Stone Age. Ancient Castles of Europe",
+		"image": "/img/stone-age.png",
+		"info": "Hardcover, 26 x 34 cm, 3.52 kg, 416 pages",
+		"category": "books",
+		"brand": "Taschen",
+		"price": 50,
+		"inStock": 4,
+		"rating": 3.5,
+		"numReviews": 5,
+		"description": "Follow photographer Frédéric Chaubin as he embarks on a unique, century-spanning journey through Europe. Featuring images of more than 200 buildings in 21 countries, Stone Age presents the history and architecture of the most dramatic medieval castles of the continent in an unprecedented collection."
 	}
 ]
