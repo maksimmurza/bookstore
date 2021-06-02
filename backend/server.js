@@ -18,10 +18,6 @@ const app = express();
 
 app.use(express.json());
 
-app.get("/", (req, res) => {
-	res.send("API running");
-});
-
 if (process.env.NODE_ENV === "development") {
 	app.use(morgan("dev"));
 }
@@ -38,6 +34,18 @@ app.get("/api/config/paypal", (req, res) =>
 // Share static for accessibility from browser
 const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
+
+if (process.env.NODE_ENV === "production") {
+	console.log("prod");
+	app.use(express.static(path.join(__dirname, "/frontend/build")));
+	app.use("*", (req, res) =>
+		res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"))
+	);
+} else {
+	app.get("/", (req, res) => {
+		res.send("API running");
+	});
+}
 
 app.use(notFound);
 app.use(errorHandler);

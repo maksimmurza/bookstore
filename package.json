@@ -10,7 +10,8 @@
 		"start": "concurrently \"npm run server\" \"npm run client\"",
 		"data:import": "node --experimental-json-modules backend/seeder.js",
 		"data:delete": "node --experimental-json-modules backend/seeder.js -d",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"heroku-prebuild": "npm install --prefix frontend && npm run build --prefix frontend"
 	},
 	"keywords": [],
 	"author": "Maksim Murza",
