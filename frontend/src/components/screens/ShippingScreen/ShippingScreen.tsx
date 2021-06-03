@@ -8,8 +8,6 @@ import {
 } from "react-bootstrap";
 import { RouteChildrenProps } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
-import Loader from "../../Loader/Loader";
-import Message from "../../Message/Message";
 import { saveShippingAddress } from "../../../redux/actions/cartActions";
 import FormContainer from "../../FormContainer/FormContainer";
 import CheckoutSteps from "../../CheckoutSteps/CheckoutSteps";
@@ -19,15 +17,8 @@ const ShippingScreen = ({ history, location }: RouteChildrenProps) => {
 	const [city, setCity] = useState("");
 	const [address, setAddress] = useState("");
 	const [postalCode, setPostalCode] = useState("");
-	const [message, setMessage] = useState("");
-
-	const redirect = location.search
-		? location.search.split("=")[1]
-		: "/profile";
 
 	const dispatch = useAppDispatch();
-	// const { loading, error } = useAppSelector((state) => state.userRegister);
-	// const { userInfo } = useAppSelector((state) => state.userLogin);
 	const { shippingAddress } = useAppSelector((state) => state.cart);
 
 	useEffect(() => {

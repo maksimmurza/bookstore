@@ -2,7 +2,7 @@
 	"name": "bookstore",
 	"version": "1.0.0",
 	"type": "module",
-	"description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+	"description": "e-commerce web application on the MERN stack ",
 	"main": "server.js",
 	"scripts": {
 		"server": "nodemon --experimental-json-modules backend/server.js",
@@ -10,10 +10,12 @@
 		"start": "concurrently \"npm run server\" \"npm run client\"",
 		"data:import": "node --experimental-json-modules backend/seeder.js",
 		"data:delete": "node --experimental-json-modules backend/seeder.js -d",
-		"test": "echo \"Error: no test specified\" && exit 1",
 		"heroku-prebuild": "npm install --prefix frontend && npm run build --prefix frontend"
 	},
-	"keywords": [],
+	"keywords": [
+		"mern",
+		"bookstore"
+	],
 	"author": "Maksim Murza",
 	"license": "ISC",
 	"dependencies": {

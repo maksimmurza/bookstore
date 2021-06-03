@@ -1,7 +1,7 @@
-import React, { useState, useEffect, FormEvent } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Table, ButtonGroup, Modal } from "react-bootstrap";
-import { Check, X, PencilFill, Trash } from "react-bootstrap-icons";
-import { RouteChildrenProps, useHistory } from "react-router-dom";
+import { X, Trash } from "react-bootstrap-icons";
+import { useHistory } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import Loader from "../../Loader/Loader";

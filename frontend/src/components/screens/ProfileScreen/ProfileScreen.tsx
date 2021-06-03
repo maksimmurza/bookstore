@@ -42,6 +42,7 @@ const ProfileScreen = ({ location, history }: RouteChildrenProps) => {
 	// Fetch once. Independent from updating user info
 	useEffect(() => {
 		dispatch(getUserOrders());
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	useEffect(() => {
@@ -61,6 +62,7 @@ const ProfileScreen = ({ location, history }: RouteChildrenProps) => {
 				dispatch({ type: USER_EDIT_RESET });
 			}
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [dispatch, history, success, user, userInfo]);
 
 	const submitHandler = (event: FormEvent) => {

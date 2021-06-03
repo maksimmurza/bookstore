@@ -6,13 +6,8 @@ import { savePaymentMethod } from "../../../redux/actions/cartActions";
 import FormContainer from "../../FormContainer/FormContainer";
 import CheckoutSteps from "../../CheckoutSteps/CheckoutSteps";
 
-const PaymentScreen = ({ history, location }: RouteChildrenProps) => {
-	const cart = useAppSelector((state) => state.cart);
+const PaymentScreen = ({ history }: RouteChildrenProps) => {
 	const [paymentMethod, setPaymentMethod] = useState("PayPal");
-
-	const redirect = location.search
-		? location.search.split("=")[1]
-		: "/placeorder";
 
 	const dispatch = useAppDispatch();
 	const { shippingAddress } = useAppSelector((state) => state.cart);
@@ -46,16 +41,6 @@ const PaymentScreen = ({ history, location }: RouteChildrenProps) => {
 								setPaymentMethod(e.target.value);
 							}}
 						></Form.Check>
-						{/* <Form.Check
-							id="Bitkoin"
-							name="paymentMethod"
-							value="Bitkoin"
-							type="radio"
-							label="Bitkoin"
-							onChange={(e) => {
-								setPaymentMethod(e.target.value);
-							}}
-						></Form.Check> */}
 					</FormGroup>
 					<Button type="submit" variant="primary">
 						Continue

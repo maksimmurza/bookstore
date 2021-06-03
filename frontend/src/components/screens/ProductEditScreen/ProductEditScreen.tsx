@@ -1,7 +1,5 @@
 import React, { useState, useEffect, FormEvent } from "react";
 import {
-	Row,
-	Col,
 	Form,
 	Button,
 	FormGroup,
@@ -9,7 +7,7 @@ import {
 	FormControl,
 	InputGroup,
 } from "react-bootstrap";
-import { Link, RouteChildrenProps } from "react-router-dom";
+import { RouteChildrenProps } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import Loader from "../../Loader/Loader";
 import Message from "../../Message/Message";
@@ -39,12 +37,10 @@ const ProductEditScreen = ({
 	const [uploading, setUploading] = useState(false);
 	const dispatch = useAppDispatch();
 
-	const { userInfo } = useAppSelector((state) => state.userLogin);
-
 	const {
 		loading: editLoading,
 		success: editSuccess,
-		product: updatedProduct,
+		// product: updatedProduct,
 		error: editError,
 	} = useAppSelector((state) => state.productEdit);
 
@@ -56,6 +52,7 @@ const ProductEditScreen = ({
 
 	useEffect(() => {
 		dispatch(detailsProduct(match!.params.id));
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	useEffect(() => {
@@ -68,6 +65,7 @@ const ProductEditScreen = ({
 			setDescription(product.description);
 			setInStock(product.inStock);
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [product]);
 
 	useEffect(() => {
@@ -75,6 +73,7 @@ const ProductEditScreen = ({
 			dispatch({ type: PRODUCT_EDIT_RESET });
 			history.push("/admin/productList");
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [editSuccess, history]);
 
 	const submitHandler = (event: FormEvent) => {

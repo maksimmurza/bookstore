@@ -1,6 +1,5 @@
-import React, { ComponentProps, FormEvent, useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { Form, Button, InputGroup } from "react-bootstrap";
-import { Search } from "react-bootstrap-icons";
 import { useHistory } from "react-router";
 import "./SearchBox.scss";
 

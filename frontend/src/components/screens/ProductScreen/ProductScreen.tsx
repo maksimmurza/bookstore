@@ -1,15 +1,14 @@
 import React, { FormEvent, useEffect, useState } from "react";
-import ReactDOM from "react-dom";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import {
 	detailsProduct,
 	createProductReview,
 } from "../../../redux/actions/productActions";
-import { Link, useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import Rating from "../../Rating/Rating";
 import Loader from "../../Loader/Loader";
 import Message from "../../Message/Message";
-import { ArrowLeft, StarFill, Star } from "react-bootstrap-icons";
+import { ArrowLeft } from "react-bootstrap-icons";
 import {
 	Row,
 	Col,
@@ -307,10 +306,15 @@ const ProductScreen = () => {
 													}
 												></Form.Control>
 												<Button
+													disabled={
+														createReviewLoading
+													}
 													type="submit"
 													className="mt-3"
 												>
-													Submit
+													{createReviewLoading
+														? "Loading..."
+														: "Submit"}
 												</Button>
 											</Form.Group>
 										</Form>

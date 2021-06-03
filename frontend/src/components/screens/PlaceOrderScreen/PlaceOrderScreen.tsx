@@ -1,19 +1,8 @@
-import React, { useState, useEffect, FormEvent } from "react";
-import {
-	Row,
-	Col,
-	ListGroup,
-	Image,
-	Card,
-	Button,
-	ListGroupItem,
-} from "react-bootstrap";
+import React, { useEffect } from "react";
+import { Row, Col, ListGroup, Image, Card, Button } from "react-bootstrap";
 import { Link, RouteChildrenProps } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
-import Loader from "../../Loader/Loader";
 import Message from "../../Message/Message";
-import { saveShippingAddress } from "../../../redux/actions/cartActions";
-import FormContainer from "../../FormContainer/FormContainer";
 import CheckoutSteps from "../../CheckoutSteps/CheckoutSteps";
 import { createOrder } from "../../../redux/actions/orderActions";
 
@@ -28,6 +17,7 @@ const PlaceOrderScreen = ({ history }: RouteChildrenProps) => {
 		if (success) {
 			history.push(`/orders/${order!._id}`);
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [history, success]);
 
 	const itemsPrice = cartItems!.reduce(

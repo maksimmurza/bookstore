@@ -1,14 +1,12 @@
 import React, { useState, useEffect, FormEvent } from "react";
 import {
-	Row,
-	Col,
 	Form,
 	Button,
 	FormGroup,
 	FormLabel,
 	FormControl,
 } from "react-bootstrap";
-import { Link, RouteChildrenProps } from "react-router-dom";
+import { RouteChildrenProps } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import Loader from "../../Loader/Loader";
 import Message from "../../Message/Message";
@@ -53,6 +51,7 @@ const UserEditScreen = ({
 		if (success) {
 			history.push("/admin/userList");
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [success]);
 
 	const submitHandler = (event: FormEvent) => {

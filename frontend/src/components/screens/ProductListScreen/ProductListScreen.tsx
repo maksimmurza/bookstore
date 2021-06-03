@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FormEvent } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Table, ButtonGroup, Modal, Row, Col } from "react-bootstrap";
 import { PencilFill, Trash, Plus } from "react-bootstrap-icons";
 import { RouteComponentProps, useHistory } from "react-router-dom";
@@ -55,6 +55,7 @@ const ProductListScreen = ({ match }: RouteComponentProps<RouteParams>) => {
 		}
 
 		dispatch(listProducts("", pageNumber));
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [deleteSuccess, userInfo?.isAdmin, pageNumber]);
 
 	useEffect(() => {
@@ -62,6 +63,7 @@ const ProductListScreen = ({ match }: RouteComponentProps<RouteParams>) => {
 			dispatch({ type: PRODUCT_CREATE_RESET });
 			history.push(`/admin/product/${product._id}/edit`);
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [createSuccess, history, product]);
 
 	useEffect(() => {

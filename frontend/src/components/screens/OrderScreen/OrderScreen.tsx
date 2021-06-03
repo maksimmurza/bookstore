@@ -59,7 +59,7 @@ const OrderScreen = ({
 			const { data: clientId } = await axios.get("/api/config/paypal");
 			const script = document.createElement("script");
 			script.type = "text/javascript";
-			script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
+			script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}&currency=GBP`;
 			script.async = true;
 			document.body.appendChild(script);
 			script.onload = () => {
@@ -77,6 +77,7 @@ const OrderScreen = ({
 		return () => {
 			dispatch({ type: ORDER_DETAILS_RESET });
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [dispatch, orderId, successPay, successDeliver, userInfo]);
 
 	let itemsPrice;
@@ -246,41 +247,53 @@ const OrderScreen = ({
 												<Col>£{order!.totalPrice}</Col>
 											</Row>
 										</ListGroup.Item>
-										{!order!.isPaid && userInfo && (
-											<ListGroup.Item>
-												{loadingPay && (
-													<Loader></Loader>
-												)}
-												{!sdkReady ? (
-													<Loader></Loader>
-												) : (
-													<PayPalButton
-														amount={
-															order!.totalPrice
-														}
-														onSuccess={
-															successPaymentHandler
-														}
-													></PayPalButton>
-												)}
-											</ListGroup.Item>
-										)}
+										{!order!.isPaid &&
+											userInfo &&
+											userInfo._id ===
+												order!.user._id && (
+												<ListGroup.Item>
+													{loadingPay && (
+														<Loader></Loader>
+													)}
+													{!sdkReady ? (
+														<Loader></Loader>
+													) : (
+														<PayPalButton
+															currency="GBP"
+															amount={
+																order!
+																	.totalPrice
+															}
+															onSuccess={
+																successPaymentHandler
+															}
+														></PayPalButton>
+													)}
+												</ListGroup.Item>
+											)}
 										{userInfo &&
 											userInfo.isAdmin &&
 											!order?.isDelivered && (
 												<ListGroup.Item>
 													<Button
 														variant="primary"
+														disabled={
+															loadingDeliver
+														}
 														className="btn-block"
 														onClick={
 															successDeliverHandler
 														}
 													>
-														Mark as delivered
+														{loadingDeliver
+															? "Loading"
+															: "Mark as delivered"}
 													</Button>
 												</ListGroup.Item>
 											)}
-										{error && (
+										{(error ||
+											errorDeliver ||
+											errorPay) && (
 											<ListGroup.Item>
 												<Message variant="danger">
 													{error}
