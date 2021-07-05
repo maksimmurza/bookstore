@@ -18,6 +18,6 @@ routes
 	.get(protect, getOrderById)
 	.delete(protect, admin, deleteOrder);
 routes.route("/:id/pay").put(protect, updateOrderToPaid);
-routes.route("/:id/deliver").put(protect, admin, updateOrderToDeliver);
+routes.route("/:id/deliver").put(protect, updateOrderToDeliver);
 
 export default routes;

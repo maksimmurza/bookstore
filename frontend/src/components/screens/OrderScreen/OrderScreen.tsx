@@ -271,32 +271,30 @@ const OrderScreen = ({
 													)}
 												</ListGroup.Item>
 											)}
-										{userInfo &&
-											userInfo.isAdmin &&
-											!order?.isDelivered && (
-												<ListGroup.Item>
-													<Button
-														variant="primary"
-														disabled={
-															loadingDeliver
-														}
-														className="btn-block"
-														onClick={
-															successDeliverHandler
-														}
-													>
-														{loadingDeliver
-															? "Loading"
-															: "Mark as delivered"}
-													</Button>
-												</ListGroup.Item>
-											)}
+										{!order?.isDelivered && (
+											<ListGroup.Item>
+												<Button
+													variant="primary"
+													disabled={loadingDeliver}
+													className="btn-block"
+													onClick={
+														successDeliverHandler
+													}
+												>
+													{loadingDeliver
+														? "Loading"
+														: "Mark as delivered"}
+												</Button>
+											</ListGroup.Item>
+										)}
 										{(error ||
 											errorDeliver ||
 											errorPay) && (
 											<ListGroup.Item>
 												<Message variant="danger">
 													{error}
+													{errorPay}
+													{errorDeliver}
 												</Message>
 											</ListGroup.Item>
 										)}
