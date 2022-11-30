@@ -1,5 +1,7 @@
 # Book Store
 
+upd: incorrect ts using with redux
+
 e-commerce web application on the MERN stack
 
 ## 🪁 [Try it out](https://bookstore-commerce.herokuapp.com/)
